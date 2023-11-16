@@ -6,10 +6,12 @@ using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 using UnityEngineInternal;
+using UnityEngine.InputSystem;
+using System.Security;
 
 
 enum State {
-        normal=0, jumping = 1, falling = 2
+        normal=0, jumping = 1, goingUp = 2
     }
    
 enum Mov_Dir {
@@ -26,10 +28,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Mov_Dir dir_mov = Mov_Dir.still;
     [SerializeField] private Transform VerificadorFrenteTransform;
     [SerializeField] private LayerMask WallMask;
+    [SerializeField] private InputActionAsset inputActions = null;
   
 
     public Vector3 movement; 
     private bool checkWallOnFront = false;
+    private bool moveDetected = false;
+    private bool climbPossible  = false;
+  
 
 
     //Safe rotation
@@ -42,8 +48,9 @@ public class PlayerController : MonoBehaviour
         estado = State.normal;
         dir_mov =Mov_Dir.right;
         movement = new Vector3(0.0f, 0.0f ,0.0f);
-    
+
     }
+
 
     // Update is called once per frame
     void Update()
@@ -58,14 +65,14 @@ public class PlayerController : MonoBehaviour
             if(dir_mov == Mov_Dir.left){
                 //gameObject.transform.rotation =  Quaternion.AngleAxis(180.0f,Vector3.up)*gameObject.transform.rotation; -> TECNICAMENTE DEBERIA SERVIR, SUPONGO QUE NO
                 // POR USAR transformp,rotate cuando hay fisicas
-            
+
                 characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
-                //characterRigidBody.rotation = Quaternion.Euler(0, 180, 0)*characterRigidBody.rotation;
                 Debug.Log("Girar derecha");
             }
 
             dir_mov = Mov_Dir.right;
             movement = new Vector3(1.0f, 0.0f ,0.0f);
+            moveDetected = true;
             
 
            
@@ -73,19 +80,17 @@ public class PlayerController : MonoBehaviour
         
         if(Input.GetKey("left")){
             
-            /*characterRigidBody.transform.rotation = Quaternion.Euler(0, 180, 0);*/
-            //gameObject.transform.rotation =  Quaternion.Euler(0, 180, 0);
 
             if(dir_mov == Mov_Dir.right){
-                
+        
                 characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
-                //characterRigidBody.rotation = Quaternion.Euler(0, 180, 0)*characterRigidBody.rotation;
                 Debug.Log("Girar izq");
             }
 
 
             dir_mov = Mov_Dir.left;
             movement = new Vector3(-1.0f, 0.0f ,0.0f);
+            moveDetected = true;
             
         }
         
@@ -103,7 +108,19 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if (Physics.CheckSphere(VerificadorFrenteTransform.position, 0.03f,WallMask )){
+        if(Input.GetKey(KeyCode.A) && climbPossible){
+
+            //characterRigidBody.AddForce(Vector3.up*90.0f,ForceMode.Force);
+            estado = State.goingUp;
+            movement = new Vector3(0.0f, 1.0f ,0.0f);
+            moveDetected = true;
+            
+
+        }
+
+
+
+        if (Physics.CheckSphere(VerificadorFrenteTransform.position, 0.03f,WallMask)){
             Debug.Log("Pared adelante");
             checkWallOnFront = true;
         }
@@ -117,8 +134,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+       if(moveDetected){
+            moveCharacter(movement); // We call the function 'moveCharacter' in FixedUpdate for Physics movement
+       }
        
-       moveCharacter(movement); // We call the function 'moveCharacter' in FixedUpdate for Physics movement
 
        
     }
@@ -126,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     void moveCharacter(Vector3 direction)
     {
-        //int verificarNumero;
+       
 
         //Movimiento con Fisicas correctas - Mas pesado
         if(dir_mov == Mov_Dir.left){ //Para moverse correctamente cuando se gira
@@ -146,35 +165,29 @@ public class PlayerController : MonoBehaviour
                 
 
             }
+        }
+
+        if(estado == State.goingUp){
+          
+            Vector3 moveVector = direction*speed;
+            characterRigidBody.velocity = new Vector3(characterRigidBody.velocity.x,moveVector.y, characterRigidBody.velocity.z);
+            //Debug.Log(characterRigidBody.velocity);
             
         }
         
 
-        //Movimiento con Fisicas no tan correctas - Menos pesado
-        /*if(Input.GetKey("right")  && dir_mov == Mov_Dir.right){
-            if(!checkWallOnFront){
-                
-                characterRigidBody.Move(new Vector3(characterRigidBody.transform.position.x + (speed*Time.fixedDeltaTime),characterRigidBody.transform.position.y,
-                characterRigidBody.transform.position.z),Quaternion.identity);
+        //Modo movimeinto 2 - Fisicas Notan buenas
 
-            }
-            
-        }
+        /*characterRigidBody.Move(new Vector3(characterRigidBody.transform.position.x + (movement.x*speed*Time.fixedDeltaTime),characterRigidBody.transform.position.y,
+        characterRigidBody.transform.position.z),Quaternion.identity*characterRigidBody.rotation);*/
 
+
+
+        //Simpre debe Pasar
         
-        if(Input.GetKey("left")  && dir_mov == Mov_Dir.left){
-            if(!checkWallOnFront){
-                characterRigidBody.Move(new Vector3(characterRigidBody.transform.position.x + (-speed*Time.fixedDeltaTime),characterRigidBody.transform.position.y,
-                characterRigidBody.transform.position.z),Quaternion.identity);
-
-            }
-
-            
-        }*/
-
-
-
         movement = new Vector3(0.0f, 0.0f ,0.0f);
+        moveDetected = false;
+        estado = State.normal;
         
         
 
@@ -190,7 +203,25 @@ public class PlayerController : MonoBehaviour
             estado = State.normal;
             jumpMax = 0;
         }
-       
+
+        
+    }
+
+
+    private void OnTriggerStay(Collider other){
+
+        if(other.gameObject.tag == "Stairs"){
+            climbPossible = true;
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other){
+        if(other.gameObject.tag == "Stairs"){
+            climbPossible = false;
+            estado = State.normal;
+        }
+
     }
 
 
