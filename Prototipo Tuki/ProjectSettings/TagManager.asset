@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Floor
-  - inmovible
   - Stairs
+  - interruptor
   layers:
   - Default
   - TransparentFX

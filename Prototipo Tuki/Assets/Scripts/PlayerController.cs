@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngineInternal;
 using UnityEngine.InputSystem;
 using System.Security;
+using System.Runtime.CompilerServices;
 
 
 enum State {
@@ -29,14 +30,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform VerificadorFrenteTransform;
     [SerializeField] private LayerMask WallMask;
     [SerializeField] private InputActionAsset inputActions = null;
+    [SerializeField] private Camera cameraVideo = null;
   
 
     public Vector3 movement; 
     private bool checkWallOnFront = false;
     private bool moveDetected = false;
     private bool climbPossible  = false;
-  
-
+    private float timeForVideo = 0.0f;
+    private bool stopMovement  = false;
+   
 
     //Safe rotation
      
@@ -48,13 +51,28 @@ public class PlayerController : MonoBehaviour
         estado = State.normal;
         dir_mov =Mov_Dir.right;
         movement = new Vector3(0.0f, 0.0f ,0.0f);
+        timeForVideo = 0.0f;
 
+        EventManager.TurnOnVideo += eventoVideoStarted; //Suscribirse al evento de Inicio de Video
+
+    }
+
+    private void eventoVideoStarted(){ //Respuesta al evento de Inicio de video
+        stopMovement  = true;
+        Debug.Log("Video Inicio");
     }
 
 
     // Update is called once per frame
     void Update()
     {
+
+        //Verificar si camara2 esta activada
+        if(stopMovement == true){
+            iniciarvideo();
+            //stopMovement  = true; -> Se activa con eventoVideoStarted
+        }
+        
        
 
         //Verificar input para girar
@@ -63,9 +81,7 @@ public class PlayerController : MonoBehaviour
             /*characterRigidBody.transform.rotation = Quaternion.Euler(0, 0, 0);*/
             
             if(dir_mov == Mov_Dir.left){
-                //gameObject.transform.rotation =  Quaternion.AngleAxis(180.0f,Vector3.up)*gameObject.transform.rotation; -> TECNICAMENTE DEBERIA SERVIR, SUPONGO QUE NO
-                // POR USAR transformp,rotate cuando hay fisicas
-
+             
                 characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
                 Debug.Log("Girar derecha");
             }
@@ -96,7 +112,6 @@ public class PlayerController : MonoBehaviour
         
         //movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f ,0.0f);
         
-
         
         if(Input.GetKeyDown("space") && jumpMax < 1 ){
 
@@ -108,9 +123,9 @@ public class PlayerController : MonoBehaviour
             
         }
 
+        //Accion Escalar Escalera
         if(Input.GetKey(KeyCode.A) && climbPossible){
 
-            //characterRigidBody.AddForce(Vector3.up*90.0f,ForceMode.Force);
             estado = State.goingUp;
             movement = new Vector3(0.0f, 1.0f ,0.0f);
             moveDetected = true;
@@ -119,7 +134,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
+        //Esfera identificar si hay objeto adelante para arreglar movimiento
         if (Physics.CheckSphere(VerificadorFrenteTransform.position, 0.03f,WallMask)){
             Debug.Log("Pared adelante");
             checkWallOnFront = true;
@@ -127,18 +142,14 @@ public class PlayerController : MonoBehaviour
         else{
             checkWallOnFront = false;
         }
-        
        
-
     }
 
-    void FixedUpdate()
+    void FixedUpdate() //Movimiento
     {
-       if(moveDetected){
+       if(moveDetected && !stopMovement){ //Verificar si se detecto movimiento y si algun evento no le pidio que se detuviera
             moveCharacter(movement); // We call the function 'moveCharacter' in FixedUpdate for Physics movement
        }
-       
-
        
     }
 
@@ -174,24 +185,32 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(characterRigidBody.velocity);
             
         }
-        
 
         //Modo movimeinto 2 - Fisicas Notan buenas
 
         /*characterRigidBody.Move(new Vector3(characterRigidBody.transform.position.x + (movement.x*speed*Time.fixedDeltaTime),characterRigidBody.transform.position.y,
         characterRigidBody.transform.position.z),Quaternion.identity*characterRigidBody.rotation);*/
 
-
-
         //Simpre debe Pasar
         
         movement = new Vector3(0.0f, 0.0f ,0.0f);
         moveDetected = false;
-        estado = State.normal;
+        //estado = State.normal; -> desactivado mejora el estado de GoingUp, pero no rompe el movimiento si se activa
         
         
+    }
 
-        
+    private void iniciarvideo(){
+
+        if(timeForVideo < 5){
+            timeForVideo += 1.0f * Time.deltaTime;
+        }
+        else{
+            stopMovement = false;
+            timeForVideo = 0.0f;
+            EventManager.VideoEnded();
+        }
+
     }
 
 
@@ -208,7 +227,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnTriggerStay(Collider other){
+    private void OnTriggerEnter(Collider other){
 
         if(other.gameObject.tag == "Stairs"){
             climbPossible = true;
@@ -224,6 +243,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
+        private void OnDisable(){
+            EventManager.TurnOnVideo -= eventoVideoStarted;
+        }
 
 
 
