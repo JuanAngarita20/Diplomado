@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 100.0f;
     [SerializeField] private float jumpStrength = 5.0f;
-    [SerializeField] private float jumpMax = 0.0f;
     [SerializeField] private Rigidbody characterRigidBody = null;
     [SerializeField] private State estado = State.normal;
     [SerializeField] private Mov_Dir dir_mov = Mov_Dir.still;
@@ -39,6 +38,7 @@ public class PlayerController : MonoBehaviour
     private bool climbPossible  = false;
     private float timeForVideo = 0.0f;
     private bool stopMovement  = false;
+    private float jumpMax = 0.0f;
    
 
     //Safe rotation
@@ -57,10 +57,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //Funciones de Eventos
     private void eventoVideoStarted(){ //Respuesta al evento de Inicio de video
         stopMovement  = true;
         Debug.Log("Video Inicio");
     }
+
+
 
 
     // Update is called once per frame
@@ -124,7 +127,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Accion Escalar Escalera
-        if(Input.GetKey(KeyCode.A) && climbPossible){
+        if(Input.GetKey("a") && climbPossible){
 
             estado = State.goingUp;
             movement = new Vector3(0.0f, 1.0f ,0.0f);
@@ -157,42 +160,56 @@ public class PlayerController : MonoBehaviour
     void moveCharacter(Vector3 direction)
     {
        
+       //Modo movimiento 2 - Fisicas Notan buenas - Sirve en modo lento y Rapido - HAY QUE TENER ENCENDIDO INTERPOLATE
 
-        //Movimiento con Fisicas correctas - Mas pesado
         if(dir_mov == Mov_Dir.left){ //Para moverse correctamente cuando se gira
             if(!checkWallOnFront){
                 Vector3 moveVector = direction*speed;
                 characterRigidBody.velocity = new Vector3(moveVector.x, characterRigidBody.velocity.y, characterRigidBody.velocity.z);
                 //Debug.Log(characterRigidBody.velocity);
-
             }
             
         }
         if(dir_mov == Mov_Dir.right){
             if(!checkWallOnFront){
-                Vector3 moveVector = direction*speed;
-                characterRigidBody.velocity = new Vector3(moveVector.x, characterRigidBody.velocity.y, characterRigidBody.velocity.z);
-                //Debug.Log(characterRigidBody.velocity);
+            Vector3 moveVector = direction*speed;
+            characterRigidBody.velocity = new Vector3(moveVector.x, characterRigidBody.velocity.y, characterRigidBody.velocity.z);
+            //Debug.Log(characterRigidBody.velocity);
                 
-
             }
         }
 
+        //Saltar
         if(estado == State.goingUp){
           
             Vector3 moveVector = direction*speed;
             characterRigidBody.velocity = new Vector3(characterRigidBody.velocity.x,moveVector.y, characterRigidBody.velocity.z);
-            //Debug.Log(characterRigidBody.velocity);
             
         }
 
-        //Modo movimeinto 2 - Fisicas Notan buenas
+        //Modo movimiento 2 - Fisicas No buenas en modo Rapido - Sirve en modo lento en speed = 20
 
-        /*characterRigidBody.Move(new Vector3(characterRigidBody.transform.position.x + (movement.x*speed*Time.fixedDeltaTime),characterRigidBody.transform.position.y,
-        characterRigidBody.transform.position.z),Quaternion.identity*characterRigidBody.rotation);*/
+        
+        /*if(dir_mov == Mov_Dir.left){ 
+            if(!checkWallOnFront){
+                Vector3 moveVector = new Vector3(direction.x,direction.y,direction.z);
+                characterRigidBody.Move(characterRigidBody.transform.position + speed * Time.fixedDeltaTime * moveVector,Quaternion.identity*characterRigidBody.rotation);
+            }
+            
+        }
+        if(dir_mov == Mov_Dir.right){
+            if(!checkWallOnFront){
+                Vector3 moveVector = new Vector3(direction.x,direction.y,direction.z);
+                characterRigidBody.Move(transform.position + speed * Time.fixedDeltaTime * moveVector,Quaternion.identity*characterRigidBody.rotation);
+                
+            }
+        }*/
+
+        
+
+
 
         //Simpre debe Pasar
-        
         movement = new Vector3(0.0f, 0.0f ,0.0f);
         moveDetected = false;
         //estado = State.normal; -> desactivado mejora el estado de GoingUp, pero no rompe el movimiento si se activa
