@@ -8,12 +8,15 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] private Vector3 cameraOffset;
     [SerializeField] private float smoothFactor = 0.5f;
+    private Vector3 posicionTuki;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        cameraOffset = transform.position - targetObject.transform.position;
+        cameraOffset = targetObject.transform.position - new Vector3(targetObject.transform.position.x, targetObject.transform.position.y-3f, targetObject.transform.position.z+15f);
+        //transform.position = new Vector3(targetObject.transform.position.x+2f, targetObject.transform.position.y+1f, targetObject.transform.position.z+10f);
+        transform.position = targetObject.transform.position + cameraOffset;
         
     }
 

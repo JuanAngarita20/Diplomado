@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private State estado = State.normal;
     [SerializeField] private Mov_Dir dir_mov = Mov_Dir.still;
     [SerializeField] private Transform VerificadorFrenteTransform;
+    [SerializeField] private  List<Transform> myList;
     [SerializeField] private LayerMask WallMask;
     [SerializeField] private InputActionAsset inputActions = null;
     [SerializeField] private Camera cameraVideo = null;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     private bool moveDetected = false;
     private bool climbPossible  = false;
     private float timeForVideo = 0.0f;
+    private float timeForStill = 0.0f;
     private bool stopMovement  = false;
     private float jumpMax = 0.0f;
    
@@ -138,20 +140,40 @@ public class PlayerController : MonoBehaviour
 
 
         //Esfera identificar si hay objeto adelante para arreglar movimiento
-        if (Physics.CheckSphere(VerificadorFrenteTransform.position, 0.03f,WallMask)){
-            Debug.Log("Pared adelante");
+        if (Physics.CheckSphere(myList[0].position, 0.03f,WallMask)){
+            Debug.Log("Pared adelante 1");
+            checkWallOnFront = true;
+        }
+        else if (Physics.CheckSphere(myList[1].position, 0.03f,WallMask)){
+            Debug.Log("Pared adelante 2");
+            checkWallOnFront = true;
+        }
+        else if (Physics.CheckSphere(myList[2].position, 0.03f,WallMask)){
+            Debug.Log("Pared adelante 3");
             checkWallOnFront = true;
         }
         else{
             checkWallOnFront = false;
         }
-       
+
     }
 
     void FixedUpdate() //Movimiento
     {
        if(moveDetected && !stopMovement){ //Verificar si se detecto movimiento y si algun evento no le pidio que se detuviera
             moveCharacter(movement); // We call the function 'moveCharacter' in FixedUpdate for Physics movement
+       }
+       else{
+        timeForStill += 1.0f * Time.fixedDeltaTime;
+
+        if(timeForStill>3f){
+            //dir_mov = Mov_Dir.still;
+            timeForStill = 0;
+            //Poner animacion Idle
+            Debug.Log("Animacion Still");
+        }
+
+        //dir_mov = Mov_Dir.still;
        }
        
     }
@@ -212,7 +234,7 @@ public class PlayerController : MonoBehaviour
         //Simpre debe Pasar
         movement = new Vector3(0.0f, 0.0f ,0.0f);
         moveDetected = false;
-        //estado = State.normal; -> desactivado mejora el estado de GoingUp, pero no rompe el movimiento si se activa
+        estado = State.normal; //-> desactivado mejora el estado de GoingUp, pero no rompe el movimiento si se activa
         
         
     }

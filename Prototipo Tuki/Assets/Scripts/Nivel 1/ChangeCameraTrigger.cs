@@ -7,7 +7,7 @@ public class ChangeCameraTrigger : MonoBehaviour
 {
 
     [SerializeField] Camera mainCamera;
-    [SerializeField] Camera videoCamera;
+    [SerializeField] Camera secondCamera;
     [SerializeField] GameObject videoObject;
 
     private bool ontrigger = false;
@@ -18,7 +18,7 @@ public class ChangeCameraTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        videoCamera.enabled = false;
+        secondCamera.enabled = false;
         EventManager.TurnOffVideo += Offvideo;
     }
 
@@ -26,7 +26,7 @@ public class ChangeCameraTrigger : MonoBehaviour
     void Update()
     {
         if(ontrigger && !videoAlredyPlay){
-            videoCamera.enabled = true;
+            secondCamera.enabled = true;
 
             if(!videoEventCalled){
                 //Inicio evento
@@ -43,7 +43,7 @@ public class ChangeCameraTrigger : MonoBehaviour
    
 
     private void Offvideo(){
-        videoCamera.enabled = false;
+        secondCamera.enabled = false;
         videoEventCalled = false;
         videoAlredyPlay = true;
     }
