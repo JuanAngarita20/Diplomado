@@ -13,6 +13,7 @@ public class CamerLowerFloor : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other){
+        Debug.Log("Detecto trigger");
         if(other.gameObject.tag == "Player"){
             secondCamera.enabled = true;
         }

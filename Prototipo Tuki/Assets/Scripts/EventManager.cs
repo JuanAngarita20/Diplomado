@@ -18,6 +18,12 @@ public class EventManager : MonoBehaviour
         TurnOffVideo?.Invoke();
     }
 
+
+    public static event Action<int> AccionInterruptor; 
+    public static void InterruptorTrigger(int id){
+        AccionInterruptor?.Invoke(id);
+    }
+
    
 
     

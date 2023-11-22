@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
             //dir_mov = Mov_Dir.still;
             timeForStill = 0;
             //Poner animacion Idle
-            Debug.Log("Animacion Still");
+            //Debug.Log("Animacion Still");
         }
 
         //dir_mov = Mov_Dir.still;
