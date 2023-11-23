@@ -8,18 +8,20 @@ public class PlataformasController : MonoBehaviour
     [SerializeField] private List<int> idInterruptores;
     [SerializeField] private Vector3 angulo0;
     [SerializeField] private Vector3 angulo1;
-    [SerializeField] private int componentToCheck;
+    [SerializeField] private int compToCheck;
 
 
     private bool animacionRotar;
-    private Quaternion targetAngulo0 = Quaternion.Euler(0,0,0);
-    private Quaternion targetAngulo1 = Quaternion.Euler(0,0,0);
+    private bool alreadyRotating;
+    public Quaternion targetAngulo0 = Quaternion.Euler(0,0,0);
+    public Quaternion targetAngulo1 = Quaternion.Euler(0,0,0);
     private Quaternion angleObjective;
 
     void Start()
     {
         EventManager.AccionInterruptor += RotarPlataforma;
         animacionRotar = false;
+        alreadyRotating = false;
 
         //Rotacion Animaciones
         targetAngulo0 = Quaternion.Euler(angulo0.x,angulo0.y,angulo0.z);
@@ -32,10 +34,8 @@ public class PlataformasController : MonoBehaviour
         foreach(int id in idInterruptores){
             if(id == interrupID){
                 Debug.Log("Activaron a plataforma");
-                //transform.rotation = Quaternion.AngleAxis(90.0f,Vector3.right)*transform.rotation;
                 animacionRotar = true;
                 changeCurrectAngle();
-                //transform.rotation = Quaternion.Slerp(transform.rotation,angleObjective,0.2f);
             }
         }
 
@@ -44,33 +44,59 @@ public class PlataformasController : MonoBehaviour
 
     void Update()
     {
-        if((angleObjective.eulerAngles.z != targetAngulo0.eulerAngles.z) && (angleObjective.eulerAngles.z != targetAngulo1.eulerAngles.z)){
+        if(animacionRotar){
             transform.rotation = Quaternion.Slerp(transform.rotation,angleObjective,0.2f);
-            //animacionRotar = false;
-            Debug.Log("ROTACION PLATAFORMA");
+            alreadyRotating = true; //Designar que ya se esta girando
+            //Debug.Log("ROTACION PLATAFORMA");
         }
+
+        //Debug.Log("Plataforma: " + transform.localEulerAngles);
+        //Debug.Log("Objetivo 0 : " + targetAngulo0.eulerAngles);
+        //Debug.Log("Objetivo 1: " + targetAngulo1.eulerAngles);
+
+        if(transform.rotation.eulerAngles == targetAngulo0.eulerAngles){
+            
+            if(alreadyRotating){
+                Debug.Log("Transformada: " + transform.rotation.eulerAngles);
+                Debug.Log("Obj 0: " + targetAngulo0.eulerAngles);
+                Debug.Log("Detener Animacion------------------------------------------------------------------------rotar");
+                animacionRotar = false;
+                alreadyRotating = false;
+            }
+           
+        }
+
+        if(transform.rotation.eulerAngles == targetAngulo1.eulerAngles){
+            
+            if(alreadyRotating){
+                Debug.Log("Transformada: " + transform.rotation.eulerAngles);
+                Debug.Log("Obj 1: " + targetAngulo1.eulerAngles);
+
+                Debug.Log("Detener Animacion------------------------------------------------------------------------rotar");
+                animacionRotar = false;
+                alreadyRotating = false;
+            }
+        }
+        
         
 
     }
 
     private void changeCurrectAngle(){
 
-        if(componentToCheck == 1){ //Giro en x
+        if(compToCheck == 1){ //Giro en x
             if(angleObjective.eulerAngles.x == targetAngulo0.eulerAngles.x){
                 angleObjective = targetAngulo1;
-                
             }
             else{
                 angleObjective = targetAngulo0;
-                
             }
 
         }
 
-        if(componentToCheck == 2){ //Giro en z
+        if(compToCheck == 2){ //Giro en z
             if(angleObjective.eulerAngles.z == targetAngulo0.eulerAngles.z){
                 angleObjective = targetAngulo1;
-                
             }
             else{
                 angleObjective = targetAngulo0;
