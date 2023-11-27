@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using UnityEngine;
 
-public class PlataformasController : MonoBehaviour
-{
-    [SerializeField] private List<int> idInterruptores;
+public class PlataformaGrandeController : MonoBehaviour
+{   [SerializeField] private List<int> idInterruptores;
     [SerializeField] private Vector3 angulo0;
     [SerializeField] private Vector3 angulo1;
     [SerializeField] private int compToCheck;
@@ -13,6 +11,8 @@ public class PlataformasController : MonoBehaviour
 
     private bool animacionRotar;
     private bool alreadyRotating;
+    private bool estadoHorizontal;
+
     public Quaternion targetAngulo0 = Quaternion.Euler(0,0,0);
     public Quaternion targetAngulo1 = Quaternion.Euler(0,0,0);
     private Quaternion angleObjective;
@@ -22,6 +22,7 @@ public class PlataformasController : MonoBehaviour
         EventManager.AccionInterruptor += RotarPlataforma;
         animacionRotar = false;
         alreadyRotating = false;
+        estadoHorizontal = false;
 
         //Rotacion Animaciones
         targetAngulo0 = Quaternion.Euler(angulo0.x,angulo0.y,angulo0.z);
@@ -34,14 +35,17 @@ public class PlataformasController : MonoBehaviour
         
         foreach(int id in idInterruptores){
         if(id == interrupID){
+                if(interrupID == 8 && (estadoHorizontal == false)){
+                    Debug.Log("Girar ignorado");
+                    continue;
+                    
+                }
                 Debug.Log("Activaron a plataforma");
                 animacionRotar = true;
                 changeCurrectAngle();
             }
         }   
 
-        
-        
 
     }
 
@@ -58,27 +62,31 @@ public class PlataformasController : MonoBehaviour
         //Debug.Log("Objetivo 0 : " + targetAngulo0.eulerAngles);
         //Debug.Log("Objetivo 1: " + targetAngulo1.eulerAngles);
 
-        if(transform.rotation.eulerAngles == targetAngulo0.eulerAngles){
-            
-            if(alreadyRotating){
-                Debug.Log("Transformada: " + transform.rotation.eulerAngles);
-                Debug.Log("Obj 0: " + targetAngulo0.eulerAngles);
-                Debug.Log("Detener Animacion------------------------------------------------------------------------rotar");
-                animacionRotar = false;
-                alreadyRotating = false;
-            }
-           
-        }
-
         if(transform.rotation.eulerAngles == targetAngulo1.eulerAngles){
             
             if(alreadyRotating){
                 Debug.Log("Transformada: " + transform.rotation.eulerAngles);
-                Debug.Log("Obj 1: " + targetAngulo1.eulerAngles);
+                Debug.Log("Obj 0: " + targetAngulo1.eulerAngles);
+                Debug.Log("Detener Animacion------------------------------------------------------------------------rotar");
+                animacionRotar = false;
+                alreadyRotating = false;
+
+                estadoHorizontal = true;
+            }
+           
+        }
+
+        if(transform.rotation.eulerAngles == targetAngulo0.eulerAngles){
+            
+            if(alreadyRotating){
+                Debug.Log("Transformada: " + transform.rotation.eulerAngles);
+                Debug.Log("Obj 1: " + targetAngulo0.eulerAngles);
 
                 Debug.Log("Detener Animacion------------------------------------------------------------------------rotar");
                 animacionRotar = false;
                 alreadyRotating = false;
+
+                estadoHorizontal = false;
             }
         }
         
@@ -111,5 +119,4 @@ public class PlataformasController : MonoBehaviour
         
     }
 
-    
 }
