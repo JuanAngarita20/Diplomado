@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask WallMask;
     [SerializeField] private InputActionAsset inputActions = null;
     [SerializeField] private Camera cameraVideo = null;
+    [SerializeField] private Animator animator = null;
   
 
     public Vector3 movement; 
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
     private float timeForStill = 0.0f;
     private bool stopMovement  = false;
     private float jumpMax = 0.0f;
+    private bool rotAnimFinished = false;
    
 
     //Safe rotation
@@ -81,20 +83,33 @@ public class PlayerController : MonoBehaviour
        
 
         //Verificar input para girar
-        if(Input.GetKey("right") ){
+        if(Input.GetKey("right")){
             
             /*characterRigidBody.transform.rotation = Quaternion.Euler(0, 0, 0);*/
             
             if(dir_mov == Mov_Dir.left){
-             
+            
                 characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
+               
+                dir_mov = Mov_Dir.right;
+                movement = new Vector3(0.0f, 0.0f ,0.0f);
+                moveDetected = true;
+                
+               
+                
                 Debug.Log("Girar derecha");
             }
+            else{
+                dir_mov = Mov_Dir.right;
+                movement = new Vector3(1.0f, 0.0f ,0.0f);
+                moveDetected = true;
 
-            dir_mov = Mov_Dir.right;
-            movement = new Vector3(1.0f, 0.0f ,0.0f);
-            moveDetected = true;
+            }
+
             
+            
+            //Animacion
+            animator.SetBool("isWalking",true);
 
            
         }
@@ -103,22 +118,37 @@ public class PlayerController : MonoBehaviour
             
 
             if(dir_mov == Mov_Dir.right){
-        
                 characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
+                
+                dir_mov = Mov_Dir.left;
+                movement = new Vector3(0.0f, 0.0f ,0.0f);
+                moveDetected = true;
+                
+                
+                
                 Debug.Log("Girar izq");
+            }
+            else{
+                dir_mov = Mov_Dir.left;
+                movement = new Vector3(-1.0f, 0.0f ,0.0f);
+                moveDetected = true;
+
             }
 
 
-            dir_mov = Mov_Dir.left;
-            movement = new Vector3(-1.0f, 0.0f ,0.0f);
-            moveDetected = true;
+            
+
+            //Animacion
+            animator.SetBool("isWalking",true);
             
         }
+
+      
         
         //movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f ,0.0f);
         
         
-        if(Input.GetKeyDown("space") && jumpMax < 1 ){
+        if(Input.GetKeyDown("space") && jumpMax < 1){
 
             jumpMax++;
     
@@ -131,11 +161,23 @@ public class PlayerController : MonoBehaviour
         //Accion Escalar Escalera
         if(Input.GetKey("a") && climbPossible){
 
+
+            if(dir_mov == Mov_Dir.left){
+                animator.SetBool("escaleraIzq",true);
+            }
+            if(dir_mov == Mov_Dir.right){
+                animator.SetBool("escaleraDer",true);
+            }
+            
             estado = State.goingUp;
             movement = new Vector3(0.0f, 1.0f ,0.0f);
             moveDetected = true;
             
 
+        }
+        else{
+            animator.SetBool("escaleraIzq",false);
+            animator.SetBool("escaleraDer",false);
         }
 
 
@@ -156,6 +198,10 @@ public class PlayerController : MonoBehaviour
             checkWallOnFront = false;
         }
 
+    
+
+        
+
     }
 
     void FixedUpdate() //Movimiento
@@ -166,11 +212,12 @@ public class PlayerController : MonoBehaviour
        else{
         timeForStill += 1.0f * Time.fixedDeltaTime;
 
-        if(timeForStill>3f){
+        if(timeForStill>0.1f){
             //dir_mov = Mov_Dir.still;
             timeForStill = 0;
             //Poner animacion Idle
             //Debug.Log("Animacion Still");
+            animator.SetBool("isWalking",false);
         }
 
         //dir_mov = Mov_Dir.still;
@@ -181,6 +228,7 @@ public class PlayerController : MonoBehaviour
 
     void moveCharacter(Vector3 direction)
     {
+        //animator.SetBool("rotate",false);
        
        //Modo movimiento 2 - Fisicas Notan buenas - Sirve en modo lento y Rapido - HAY QUE TENER ENCENDIDO INTERPOLATE
 
@@ -192,6 +240,7 @@ public class PlayerController : MonoBehaviour
             }
             
         }
+       
         if(dir_mov == Mov_Dir.right){
             if(!checkWallOnFront){
             Vector3 moveVector = direction*speed;
@@ -260,6 +309,8 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.tag.Equals("Floor")){
             estado = State.normal;
             jumpMax = 0;
+            animator.SetBool("escaleraIzq",false);
+            animator.SetBool("escaleraDer",false);
         }
 
         
@@ -278,6 +329,8 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.tag == "Stairs"){
             climbPossible = false;
             estado = State.normal;
+            animator.SetBool("escaleraIzq",false);
+            animator.SetBool("escaleraDer",false);
         }
 
     }
