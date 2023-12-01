@@ -4791,6 +4791,7 @@ GameObject:
   - component: {fileID: 1914244859}
   - component: {fileID: 1914244858}
   - component: {fileID: 1914244860}
+  - component: {fileID: 1914244861}
   m_Layer: 7
   m_Name: Tuki
   m_TagString: Player
@@ -4836,7 +4837,7 @@ Transform:
   m_GameObject: {fileID: 1914244857}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.85, y: 24.38, z: -1.7}
+  m_LocalPosition: {x: 37.8, y: 53.8, z: -1.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4877,6 +4878,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!114 &1914244861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914244857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60f1cd8608605764bbf4a08dd2ed87a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rg: {fileID: 1914244860}
+  animator: {fileID: 1260820244}
 --- !u!1 &1942513954
 GameObject:
   m_ObjectHideFlags: 0
