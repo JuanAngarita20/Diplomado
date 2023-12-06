@@ -11,7 +11,7 @@ public class SecurityCameraController : MonoBehaviour
     [SerializeField] private int compToCheck;
 
 
-    [SerializeField] private LayerMask CameraMask;
+    [SerializeField] private LayerMask MaskToFind;
     [SerializeField] private float distMaxLaser;
     [SerializeField] private int idInterruptor;
 
@@ -64,7 +64,7 @@ public class SecurityCameraController : MonoBehaviour
         
             if(laserCoolDown == 0.0f){
 
-                if(Physics.Raycast(rayo,distMaxLaser,CameraMask,QueryTriggerInteraction.Ignore)){
+                if(Physics.Raycast(rayo,distMaxLaser,MaskToFind,QueryTriggerInteraction.Ignore)){
                     Debug.DrawRay(rayo.origin,rayo.direction*distMaxLaser,Color.red);
                     Debug.Log("Movimiento Detectado");
                     playerDetected = true;

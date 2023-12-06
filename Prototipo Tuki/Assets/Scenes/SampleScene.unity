@@ -279,7 +279,7 @@ MonoBehaviour:
   angulo0: {x: 0, y: 0, z: 40}
   angulo1: {x: 0, y: 0, z: 50}
   compToCheck: 2
-  CameraMask:
+  MaskToFind:
     serializedVersion: 2
     m_Bits: 128
   distMaxLaser: 0
@@ -1350,7 +1350,7 @@ GameObject:
   - component: {fileID: 608349730}
   - component: {fileID: 608349729}
   - component: {fileID: 608349728}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cubo mov3
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -1366,8 +1366,8 @@ Transform:
   m_GameObject: {fileID: 608349726}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.2, y: -17.1, z: -1.99}
-  m_LocalScale: {x: 4.5578136, y: 1.7020977, z: 5.351046}
+  m_LocalPosition: {x: 78.7, y: -15.3, z: -4.28}
+  m_LocalScale: {x: 4.5578136, y: 3.0388384, z: 5.351046}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1353279885}
@@ -1498,7 +1498,7 @@ Transform:
   m_GameObject: {fileID: 621021842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.054, y: 0.87, z: 0.015000001}
+  m_LocalPosition: {x: 2.054, y: 0.77, z: 0.015000001}
   m_LocalScale: {x: 0.15147, y: 0.15147, z: 0.15147}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1532,7 +1532,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621021842}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2246,7 +2246,7 @@ MonoBehaviour:
   angulo0: {x: 0, y: 0, z: 45}
   angulo1: {x: 0, y: 0, z: 50}
   compToCheck: 2
-  CameraMask:
+  MaskToFind:
     serializedVersion: 2
     m_Bits: 128
   distMaxLaser: 0
@@ -2281,8 +2281,8 @@ Transform:
   m_GameObject: {fileID: 879348252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.4219987, y: 0.16000137, z: 0.015000001}
-  m_LocalScale: {x: 0.15147, y: 0.15147, z: 0.15147}
+  m_LocalPosition: {x: 2.3, y: 0.16000137, z: 0.015000001}
+  m_LocalScale: {x: 0.06, y: 1.6, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1914244859}
@@ -2315,7 +2315,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 879348252}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2898,7 +2898,7 @@ Transform:
   m_GameObject: {fileID: 1090733232}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.225998, y: -0.3750041, z: 0.015000001}
+  m_LocalPosition: {x: 2.08, y: -0.3750041, z: 0.015000001}
   m_LocalScale: {x: 0.15147, y: 0.15147, z: 0.15147}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2932,7 +2932,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090733232}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -4241,7 +4241,7 @@ GameObject:
   - component: {fileID: 1550639690}
   - component: {fileID: 1550639689}
   - component: {fileID: 1550639688}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -4257,8 +4257,8 @@ Transform:
   m_GameObject: {fileID: 1550639686}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.52, y: -16.3, z: -2.21}
-  m_LocalScale: {x: 3.8924012, y: 2.6395545, z: 5.9359922}
+  m_LocalPosition: {x: 20.82, y: -16.84, z: -2.21}
+  m_LocalScale: {x: 3.8924012, y: 2.0286295, z: 5.9359922}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1353279885}
@@ -4479,7 +4479,7 @@ GameObject:
   - component: {fileID: 1704151231}
   - component: {fileID: 1704151230}
   - component: {fileID: 1704151229}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cubo mov1
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -4495,7 +4495,7 @@ Transform:
   m_GameObject: {fileID: 1704151227}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.17, y: 14.070001, z: -1.99}
+  m_LocalPosition: {x: 1.56, y: 14.070001, z: -1.99}
   m_LocalScale: {x: 2.5501423, y: 1.0336416, z: 5.351046}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4525,7 +4525,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1704151230
@@ -4824,10 +4824,14 @@ MonoBehaviour:
   WallMask:
     serializedVersion: 2
     m_Bits: 64
+  MoveMask:
+    serializedVersion: 2
+    m_Bits: 256
   inputActions: {fileID: -944628639613478452, guid: 083c87a5429a19b4aa711c10e94d9998, type: 3}
   cameraVideo: {fileID: 580243217}
   animator: {fileID: 1260820244}
   movement: {x: 0, y: 0, z: 0}
+  grounded: 0
 --- !u!4 &1914244859
 Transform:
   m_ObjectHideFlags: 0
@@ -4837,7 +4841,7 @@ Transform:
   m_GameObject: {fileID: 1914244857}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.8, y: 53.8, z: -1.7}
+  m_LocalPosition: {x: -7.01, y: 59.84, z: -1.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5341,7 +5345,7 @@ GameObject:
   - component: {fileID: 2091528416}
   - component: {fileID: 2091528415}
   - component: {fileID: 2091528414}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cubo mov2
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -5356,13 +5360,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091528412}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.13215366, z: -0, w: 0.9912293}
-  m_LocalPosition: {x: 6.9, y: 14.780001, z: -1.95}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.53, y: 14.780001, z: -1.95}
   m_LocalScale: {x: 2.5112867, y: 2.2292898, z: 4.6664968}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1353279885}
-  m_LocalEulerAnglesHint: {x: 0, y: -15.188, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2091528414
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5387,8 +5391,8 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
+  m_Interpolate: 1
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &2091528415
 BoxCollider:

@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform VerificadorFrenteTransform;
     [SerializeField] private  List<Transform> myList;
     [SerializeField] private LayerMask WallMask;
+    [SerializeField] private LayerMask MoveMask;
     [SerializeField] private InputActionAsset inputActions = null;
     [SerializeField] private Camera cameraVideo = null;
     [SerializeField] private Animator animator = null;
@@ -38,11 +39,13 @@ public class PlayerController : MonoBehaviour
     private bool checkWallOnFront = false;
     private bool moveDetected = false;
     private bool climbPossible  = false;
+    private bool stopMovement  = false;
+    public bool grounded = false;
+
     private float timeForVideo = 0.0f;
     private float timeForStill = 0.0f;
-    private bool stopMovement  = false;
     private float jumpMax = 0.0f;
-    private bool rotAnimFinished = false;
+
    
 
     //Safe rotation
@@ -154,7 +157,9 @@ public class PlayerController : MonoBehaviour
     
             characterRigidBody.AddForce(Vector3.up*jumpStrength,ForceMode.Impulse);
             estado = State.jumping;
-            
+            animator.SetBool("jump",true);
+
+            grounded  = false;
             
         }
 
@@ -185,22 +190,55 @@ public class PlayerController : MonoBehaviour
         if (Physics.CheckSphere(myList[0].position, 0.03f,WallMask)){
             Debug.Log("Pared adelante 1");
             checkWallOnFront = true;
+           
+            
         }
         else if (Physics.CheckSphere(myList[1].position, 0.03f,WallMask)){
             Debug.Log("Pared adelante 2");
             checkWallOnFront = true;
+            
+            
         }
         else if (Physics.CheckSphere(myList[2].position, 0.03f,WallMask)){
             Debug.Log("Pared adelante 3");
             checkWallOnFront = true;
+           
+            
         }
         else{
             checkWallOnFront = false;
         }
 
-    
+        if(Physics.CheckBox(myList[0].position,new Vector3(0.03f,0.8f,0.6f),Quaternion.identity,WallMask)){
+            Debug.Log("Caja detecto");
+        }
+
+        //Identificar si hay colision con objeto movible
+        if (Physics.CheckSphere(myList[0].position, 0.03f,MoveMask) && (grounded == false)){
+            Debug.Log("Movil adelante 1");
+            movement = new Vector3(0.0f, -5.0f ,0.0f);
+            
+        }
+        else if (Physics.CheckSphere(myList[1].position, 0.03f,MoveMask) && (grounded == false)){
+            Debug.Log("Movil  adelante 2");
+            movement = new Vector3(0.0f, -5.0f ,0.0f);
+           
+        }
+        else if (Physics.CheckSphere(myList[2].position, 0.03f,MoveMask) && (grounded == false)){
+            Debug.Log("Movil  adelante 3");
+           movement = new Vector3(0.0f, -5.0f ,0.0f);
+        
+        }
+
+
+
+        if(characterRigidBody.velocity.y < -2f){
+            grounded  = false;
+
+        }
 
         
+
 
     }
 
@@ -235,7 +273,7 @@ public class PlayerController : MonoBehaviour
         if(dir_mov == Mov_Dir.left){ //Para moverse correctamente cuando se gira
             if(!checkWallOnFront){
                 Vector3 moveVector = direction*speed;
-                characterRigidBody.velocity = new Vector3(moveVector.x, characterRigidBody.velocity.y, characterRigidBody.velocity.z);
+                characterRigidBody.velocity = new Vector3(moveVector.x,characterRigidBody.velocity.y, characterRigidBody.velocity.z);
                 //Debug.Log(characterRigidBody.velocity);
             }
             
@@ -311,11 +349,23 @@ public class PlayerController : MonoBehaviour
             jumpMax = 0;
             animator.SetBool("escaleraIzq",false);
             animator.SetBool("escaleraDer",false);
+            animator.SetBool("jump",false);
+            //animator.SetBool("falling",false);
+
+            grounded = true;
+          
         }
+
+        if(collision.gameObject.layer.ToString() == "8"){
+            Debug.Log("Entro en contacto con un moveable");
+
+        }
+        
 
         
     }
 
+  
 
     private void OnTriggerEnter(Collider other){
 

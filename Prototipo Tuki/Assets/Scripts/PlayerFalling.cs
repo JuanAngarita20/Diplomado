@@ -17,13 +17,19 @@ public class PlayerFalling : MonoBehaviour
     {
         //Debug.Log(rg.velocity.y );
         if(rg.velocity.y < -2f){
-            Debug.Log("Cayendo!!");
+            //Debug.Log("Cayendo!!");
+            animator.SetBool("jump",false);
             animator.SetBool("falling",true);
 
         }
         else{
             animator.SetBool("falling",false);
         }
+
+       
+{
+   // Avoid any reload.
+}
 
     }
 
