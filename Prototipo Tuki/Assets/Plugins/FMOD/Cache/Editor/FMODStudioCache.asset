@@ -1,0 +1,660 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8636360157333893961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Props/Apaga
+  m_EditorClassIdentifier: 
+  Path: event:/Props/Apaga
+  Guid:
+    Data1: -1638857142
+    Data2: 1080271828
+    Data3: -325825121
+    Data4: 1924743019
+  Banks:
+  - {fileID: 5529587446951108698}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7276677427674244036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Props/Robot
+  m_EditorClassIdentifier: 
+  Path: event:/Props/Robot
+  Guid:
+    Data1: 1120607974
+    Data2: 1121379768
+    Data3: -1638401120
+    Data4: 804975781
+  Banks:
+  - {fileID: 5529587446951108698}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6392
+--- !u!114 &-6977952038897852871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/LEV_1.bank
+  m_EditorClassIdentifier: 
+  Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/LEV_1.bank
+  Name: LEV_1
+  StudioPath: bank:/LEV_1
+  lastModified: 638376369111474714
+  FileSizes:
+  - Name: Desktop
+    Value: 4658848
+  Exists: 1
+--- !u!114 &-6911194726468380878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Props/Electricidad
+  m_EditorClassIdentifier: 
+  Path: event:/Props/Electricidad
+  Guid:
+    Data1: -1190202213
+    Data2: 1278983699
+    Data3: -669025912
+    Data4: -1841241591
+  Banks:
+  - {fileID: 5529587446951108698}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 11500
+--- !u!114 &-3934524367368703763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Props/Camara
+  m_EditorClassIdentifier: 
+  Path: event:/Props/Camara
+  Guid:
+    Data1: -1408002103
+    Data2: 1324303727
+    Data3: 1066529458
+    Data4: 249417508
+  Banks:
+  - {fileID: 5529587446951108698}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 8500
+--- !u!114 &-3828391123963280405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/SaltoCaer
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/SaltoCaer
+  Guid:
+    Data1: -370867028
+    Data2: 1223704375
+    Data3: 839263141
+    Data4: 1023355522
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 573
+--- !u!114 &-2766830552159649585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/Chillidos
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/Chillidos
+  Guid:
+    Data1: -1440753982
+    Data2: 1109564970
+    Data3: -1683220339
+    Data4: 1127185158
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2750
+--- !u!114 &-2332311413020560563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/Empujar
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/Empujar
+  Guid:
+    Data1: -1977401290
+    Data2: 1295777784
+    Data3: -955400783
+    Data4: 813034903
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5388
+--- !u!114 &-1940579415729207705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambient/Alcantarilla
+  m_EditorClassIdentifier: 
+  Path: event:/Ambient/Alcantarilla
+  Guid:
+    Data1: -1409680660
+    Data2: 1097121835
+    Data3: 975741881
+    Data4: 2053756083
+  Banks:
+  - {fileID: -6977952038897852871}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 60708
+--- !u!114 &-940262672433464498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/Para
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/Para
+  Guid:
+    Data1: 386243806
+    Data2: 1116739981
+    Data3: -1844011879
+    Data4: -65232677
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1500
+--- !u!114 &-186681564966978377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638376369111674519
+  FileSizes:
+  - Name: Desktop
+    Value: 1036
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 4682174106574564516}
+  - {fileID: -6977952038897852871}
+  - {fileID: -186681564966978377}
+  - {fileID: 5529587446951108698}
+  - {fileID: 1114168804917990287}
+  EditorEvents:
+  - {fileID: -1940579415729207705}
+  - {fileID: -8636360157333893961}
+  - {fileID: 475625891391044506}
+  - {fileID: -6911194726468380878}
+  - {fileID: 94065397916185088}
+  - {fileID: -3934524367368703763}
+  - {fileID: -7276677427674244036}
+  - {fileID: 8805820649554281936}
+  - {fileID: -2332311413020560563}
+  - {fileID: 3488808134808397492}
+  - {fileID: 1073861022606486950}
+  - {fileID: 5458050827520572937}
+  - {fileID: 2592266478750788607}
+  - {fileID: -3828391123963280405}
+  - {fileID: 1244110685133970208}
+  - {fileID: -2766830552159649585}
+  - {fileID: 7445443163630416912}
+  - {fileID: 8176768016817679550}
+  - {fileID: -940262672433464498}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: -186681564966978377}
+  StringsBanks:
+  - {fileID: 4682174106574564516}
+  cacheTime: 638376369150948055
+  cacheVersion: 131609
+--- !u!114 &94065397916185088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Props/RMadera
+  m_EditorClassIdentifier: 
+  Path: event:/Props/RMadera
+  Guid:
+    Data1: -4529760
+    Data2: 1213094237
+    Data3: -289668730
+    Data4: -102134277
+  Banks:
+  - {fileID: 5529587446951108698}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5795
+--- !u!114 &475625891391044506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Props/Enciende
+  m_EditorClassIdentifier: 
+  Path: event:/Props/Enciende
+  Guid:
+    Data1: -277457013
+    Data2: 1125393914
+    Data3: -1722176836
+    Data4: 910191953
+  Banks:
+  - {fileID: 5529587446951108698}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1073861022606486950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/MuerteRobot
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/MuerteRobot
+  Guid:
+    Data1: 380336447
+    Data2: 1198765776
+    Data3: -1025085267
+    Data4: -1913707068
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2374
+--- !u!114 &1114168804917990287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/TUKI.bank
+  m_EditorClassIdentifier: 
+  Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/TUKI.bank
+  Name: TUKI
+  StudioPath: bank:/TUKI
+  lastModified: 638376369150948055
+  FileSizes:
+  - Name: Desktop
+    Value: 2523776
+  Exists: 1
+--- !u!114 &1244110685133970208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/Pasos
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/Pasos
+  Guid:
+    Data1: -1048763731
+    Data2: 1322708482
+    Data3: 1633070518
+    Data4: -452386717
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 9000
+--- !u!114 &2592266478750788607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/MuerteTiempo
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/MuerteTiempo
+  Guid:
+    Data1: -500261033
+    Data2: 1312657337
+    Data3: 889127854
+    Data4: -1162398440
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6490
+--- !u!114 &3488808134808397492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/Carga
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/Carga
+  Guid:
+    Data1: 2018633276
+    Data2: 1179090210
+    Data3: 1802951092
+    Data4: -1448000545
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 7500
+--- !u!114 &4682174106574564516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638376369111694473
+  FileSizes:
+  - Name: Desktop
+    Value: 1672
+  Exists: 1
+--- !u!114 &5458050827520572937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/Descarga
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/Descarga
+  Guid:
+    Data1: -2016393653
+    Data2: 1194248556
+    Data3: -68238170
+    Data4: -1342243521
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &5529587446951108698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/PROPS.bank
+  m_EditorClassIdentifier: 
+  Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/PROPS.bank
+  Name: PROPS
+  StudioPath: bank:/PROPS
+  lastModified: 638376369115103384
+  FileSizes:
+  - Name: Desktop
+    Value: 566112
+  Exists: 1
+--- !u!114 &7445443163630416912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/MuerteCaida
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/MuerteCaida
+  Guid:
+    Data1: -723463229
+    Data2: 1314298588
+    Data3: -1425072997
+    Data4: 1408829050
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 992
+--- !u!114 &8176768016817679550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/Roer
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/Roer
+  Guid:
+    Data1: -81903155
+    Data2: 1200180276
+    Data3: -626664829
+    Data4: 701919919
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 16090
+--- !u!114 &8805820649554281936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/Tuberia
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/Tuberia
+  Guid:
+    Data1: -1276807416
+    Data2: 1273147173
+    Data3: 616927918
+    Data4: -303921853
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 22233
