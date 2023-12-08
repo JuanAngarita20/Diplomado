@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFalling : MonoBehaviour
+public class PlayerController2 : MonoBehaviour
 {
     [SerializeField] private Rigidbody rg;
     [SerializeField] private Animator animator = null;
+    [SerializeField] private Transform cajaCheck;
 
     void Start()
     {
@@ -26,22 +27,18 @@ public class PlayerFalling : MonoBehaviour
             animator.SetBool("falling",false);
         }
 
+
        
 
     }
 
-      private void OnCollisionEnter(Collision collision){
+    private void OnCollisionEnter(Collision collision){
 
 
         if(collision.gameObject.tag.Equals("Floor")){
             animator.SetBool("falling",false);
         }
 
-        if(collision.gameObject.layer.ToString() == "9"){
-            Debug.Log("Puedes destruir");
-        }
-
         
     }
-
 }

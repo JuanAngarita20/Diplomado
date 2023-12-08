@@ -30,9 +30,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private  List<Transform> myList;
     [SerializeField] private LayerMask WallMask;
     [SerializeField] private LayerMask MoveMask;
-    [SerializeField] private InputActionAsset inputActions = null;
+    [SerializeField] private LayerMask DestroyMask;
     [SerializeField] private Camera cameraVideo = null;
     [SerializeField] private Animator animator = null;
+    [SerializeField] private Transform colliderTransform = null;
+    [SerializeField] private Transform modelTransform = null;
   
 
     public Vector3 movement; 
@@ -41,10 +43,12 @@ public class PlayerController : MonoBehaviour
     private bool climbPossible  = false;
     private bool stopMovement  = false;
     public bool grounded = false;
+    
 
     private float timeForVideo = 0.0f;
     private float timeForStill = 0.0f;
     private float jumpMax = 0.0f;
+    public float moveCollider = 0.0f;
 
    
 
@@ -164,8 +168,12 @@ public class PlayerController : MonoBehaviour
         }
 
         //Accion Escalar Escalera
-        if(Input.GetKey("a") && climbPossible){
+        if(Input.GetKey("a") && climbPossible && (grounded == true)){
 
+
+            /*if(colliderTransform.transform.rotation.eulerAngles.z == 90 ){
+                colliderTransform.transform.Rotate(new Vector3(0f, 0f, 1f),90);
+            }*/
 
             if(dir_mov == Mov_Dir.left){
                 animator.SetBool("escaleraIzq",true);
@@ -173,10 +181,12 @@ public class PlayerController : MonoBehaviour
             if(dir_mov == Mov_Dir.right){
                 animator.SetBool("escaleraDer",true);
             }
+
             
             estado = State.goingUp;
             movement = new Vector3(0.0f, 1.0f ,0.0f);
             moveDetected = true;
+            grounded  = false;
             
 
         }
@@ -185,34 +195,64 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("escaleraDer",false);
         }
 
-
+        /*
         //Esfera identificar si hay objeto adelante para arreglar movimiento
         if (Physics.CheckSphere(myList[0].position, 0.03f,WallMask)){
-            Debug.Log("Pared adelante 1");
-            checkWallOnFront = true;
+            //Debug.Log("Pared adelante 1");
+            //checkWallOnFront = true;
            
             
         }
         else if (Physics.CheckSphere(myList[1].position, 0.03f,WallMask)){
-            Debug.Log("Pared adelante 2");
-            checkWallOnFront = true;
+            //Debug.Log("Pared adelante 2");
+            //checkWallOnFront = true;
             
             
         }
         else if (Physics.CheckSphere(myList[2].position, 0.03f,WallMask)){
-            Debug.Log("Pared adelante 3");
-            checkWallOnFront = true;
+            //Debug.Log("Pared adelante 3");
+            //checkWallOnFront = true;
            
             
         }
         else{
             checkWallOnFront = false;
-        }
+        }*/
 
-        if(Physics.CheckBox(myList[0].position,new Vector3(0.03f,0.8f,0.6f),Quaternion.identity,WallMask)){
+        if(Physics.CheckBox(myList[0].position,new Vector3(0.03f,0.7f,0.6f),Quaternion.identity,WallMask)){
             Debug.Log("Caja detecto");
+            checkWallOnFront = true;
+        }
+        else{
+            checkWallOnFront = false;
         }
 
+
+        if(Physics.CheckBox(myList[0].position,new Vector3(0.03f,0.7f,0.6f),Quaternion.identity,MoveMask)  && (grounded == false)){
+            Debug.Log("Movil adelante");
+            movement = new Vector3(0.0f, -5.0f ,0.0f);
+        }
+
+        if(Physics.CheckBox(myList[0].position,new Vector3(0.03f,0.7f,0.6f),Quaternion.identity,DestroyMask)  && (grounded == false)){
+            Debug.Log("destruible adelante");
+            movement = new Vector3(0.0f, -5.0f ,0.0f);
+        }
+
+        if(Physics.CheckBox(myList[0].position,new Vector3(0.03f,0.7f,0.6f),Quaternion.identity,MoveMask)  && (grounded == true)){
+            animator.SetBool("push", true);
+
+            moveCollider +=1;
+            
+            if(moveCollider == 1f){
+                colliderTransform.localPosition =  new Vector3(-0.8f, -0.15f, 0.0f);
+            }
+            
+            
+        }
+        
+
+
+        /*
         //Identificar si hay colision con objeto movible
         if (Physics.CheckSphere(myList[0].position, 0.03f,MoveMask) && (grounded == false)){
             Debug.Log("Movil adelante 1");
@@ -228,7 +268,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Movil  adelante 3");
            movement = new Vector3(0.0f, -5.0f ,0.0f);
         
-        }
+        }*/
 
 
 
@@ -237,8 +277,14 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        
+        //Debug.Log(Mathf.Ceil(characterRigidBody.velocity.y));
 
+        /*if( Mathf.Ceil(characterRigidBody.velocity.y) == 0.0f && grounded == false){
+            grounded  = true;
+
+        }*/
+        
+   
 
     }
 
@@ -321,7 +367,11 @@ public class PlayerController : MonoBehaviour
         //Simpre debe Pasar
         movement = new Vector3(0.0f, 0.0f ,0.0f);
         moveDetected = false;
-        estado = State.normal; //-> desactivado mejora el estado de GoingUp, pero no rompe el movimiento si se activa
+
+        if(grounded){
+            estado = State.normal; //-> desactivado mejora el estado de GoingUp, pero no rompe el movimiento si se activa
+        }
+        
         
         
     }
@@ -350,9 +400,14 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("escaleraIzq",false);
             animator.SetBool("escaleraDer",false);
             animator.SetBool("jump",false);
+            animator.SetBool("push", false);
             //animator.SetBool("falling",false);
 
             grounded = true;
+
+            /*if(colliderTransform.transform.rotation.eulerAngles.z == 180 ){
+                colliderTransform.transform.Rotate(new Vector3(0f, 0f, 1f),-90);
+            }*/
           
         }
 
@@ -361,8 +416,26 @@ public class PlayerController : MonoBehaviour
 
         }
         
-
         
+    }
+
+    private void OnCollisionStay(Collision collision){
+
+        if(collision.gameObject.layer.ToString() == "8"){
+            Debug.Log("Entro en contacto con un moveable");
+
+        }
+        
+    }
+
+     private void OnCollisionExit(Collision collision){
+
+        if(collision.gameObject.layer.ToString() == "8"){
+            animator.SetBool("push", false);
+            moveCollider = 0;
+            colliderTransform.localPosition =  new Vector3(0.0f, -0.15f, 0.0f);
+
+        }
     }
 
   
