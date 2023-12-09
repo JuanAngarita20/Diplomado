@@ -67,6 +67,7 @@ public class SecurityCameraController : MonoBehaviour
                 if(Physics.Raycast(rayo,distMaxLaser,MaskToFind,QueryTriggerInteraction.Ignore)){
                     Debug.DrawRay(rayo.origin,rayo.direction*distMaxLaser,Color.red);
                     Debug.Log("Movimiento Detectado");
+                    //DeteccionCamara
                     playerDetected = true;
 
                     EventManager.InterruptorTrigger(idInterruptor);

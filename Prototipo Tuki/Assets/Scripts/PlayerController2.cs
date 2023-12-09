@@ -37,6 +37,7 @@ public class PlayerController2 : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.D)){
                 EventManager.GnawObject();
                 animator.SetBool("gnaw",true);
+                //EventoRoer
                 EventManager.ActionStopMovement();
 
             }

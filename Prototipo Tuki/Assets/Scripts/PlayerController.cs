@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
             }
 
             
-            
+            //Caminar
             //Animacion
             animator.SetBool("isWalking",true);
 
@@ -159,9 +159,10 @@ public class PlayerController : MonoBehaviour
 
 
             
-
+            //EventoCaminar
             //Animacion
             animator.SetBool("isWalking",true);
+
             
         }
 
@@ -176,6 +177,7 @@ public class PlayerController : MonoBehaviour
     
             characterRigidBody.AddForce(Vector3.up*jumpStrength,ForceMode.Impulse);
             estado = State.jumping;
+            //EventoSaltar
             animator.SetBool("jump",true);
 
             grounded  = false;
@@ -254,6 +256,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if(Physics.CheckBox(myList[0].position,new Vector3(0.03f,0.7f,0.6f),Quaternion.identity,MoveMask)  && (grounded == true)){
+            //Eventoenpuja
             animator.SetBool("push", true);
 
             moveCollider +=1;
@@ -316,7 +319,10 @@ public class PlayerController : MonoBehaviour
             timeForStill = 0;
             //Poner animacion Idle
             //Debug.Log("Animacion Still");
+            //EventoChillidos
             animator.SetBool("isWalking",false);
+            //EventoDetener caminado
+
         }
 
         //dir_mov = Mov_Dir.still;
@@ -416,6 +422,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("escaleraIzq",false);
             animator.SetBool("escaleraDer",false);
             animator.SetBool("jump",false);
+            //Eventoempujar(Talves)
             animator.SetBool("push", false);
             //animator.SetBool("falling",false);
 
@@ -440,6 +447,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit(Collision collision){
 
         if(collision.gameObject.layer.ToString() == "8"){
+            //Eventoempujar
             animator.SetBool("push", false);
             moveCollider = 0;
             colliderTransform.localPosition =  new Vector3(0.0f, -0.15f, 0.0f);

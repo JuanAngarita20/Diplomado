@@ -26,6 +26,7 @@ public class InterruptorController : MonoBehaviour
             //Evento Bajar carga
             EventManager.triggerReduceBattery();
             EventManager.InterruptorTrigger(idInterruptor);
+            //ShockElectrico
             
 
         }

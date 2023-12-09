@@ -36,6 +36,7 @@ public class PlataformasController : MonoBehaviour
         if(id == interrupID){
                 Debug.Log("Activaron a plataforma");
                 animacionRotar = true;
+                //EventoPlataforma
                 changeCurrectAngle();
             }
         }   
