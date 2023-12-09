@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private bool climbPossible  = false;
     private bool stopMovement  = false;
     public bool grounded = false;
+     public bool cinematic_On = false;
     
 
     private float timeForVideo = 0.0f;
@@ -64,14 +65,27 @@ public class PlayerController : MonoBehaviour
         movement = new Vector3(0.0f, 0.0f ,0.0f);
         timeForVideo = 0.0f;
 
-        EventManager.TurnOnVideo += eventoVideoStarted; //Suscribirse al evento de Inicio de Video
+        EventManager.TurnOnVideo += EventoVideoStarted; //Suscribirse al evento de Inicio de Video
+        EventManager.StopMovForAnim += EventStopMovement;
+        EventManager.RestartMovAfterAnim += EventRestartMovement;
 
     }
 
     //Funciones de Eventos
-    private void eventoVideoStarted(){ //Respuesta al evento de Inicio de video
+    private void EventoVideoStarted(){ //Respuesta al evento de Inicio de video
         stopMovement  = true;
+        cinematic_On = true;
         Debug.Log("Video Inicio");
+    }
+
+    private void EventStopMovement(){ //Respuesta al evento de Inicio de video
+        stopMovement  = true;
+        Debug.Log("stop mov");
+    }
+
+    private void EventRestartMovement(){ //Respuesta al evento de Inicio de video
+        stopMovement  = false;
+        Debug.Log("iniciar mov");
     }
 
 
@@ -82,7 +96,7 @@ public class PlayerController : MonoBehaviour
     {
 
         //Verificar si camara2 esta activada
-        if(stopMovement == true){
+        if(cinematic_On == true){
             iniciarvideo();
             //stopMovement  = true; -> Se activa con eventoVideoStarted
         }
@@ -90,12 +104,13 @@ public class PlayerController : MonoBehaviour
        
 
         //Verificar input para girar
-        if(Input.GetKey("right")){
+        if(Input.GetKey("right") && !stopMovement){
             
             /*characterRigidBody.transform.rotation = Quaternion.Euler(0, 0, 0);*/
             
             if(dir_mov == Mov_Dir.left){
             
+                
                 characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
                
                 dir_mov = Mov_Dir.right;
@@ -121,7 +136,7 @@ public class PlayerController : MonoBehaviour
            
         }
         
-        if(Input.GetKey("left")){
+        if(Input.GetKey("left") && !stopMovement){
             
 
             if(dir_mov == Mov_Dir.right){
@@ -294,7 +309,7 @@ public class PlayerController : MonoBehaviour
             moveCharacter(movement); // We call the function 'moveCharacter' in FixedUpdate for Physics movement
        }
        else{
-        timeForStill += 1.0f * Time.fixedDeltaTime;
+        timeForStill += 1.0f * Time.fixedDeltaTime; //Para activar idle
 
         if(timeForStill>0.1f){
             //dir_mov = Mov_Dir.still;
@@ -383,6 +398,7 @@ public class PlayerController : MonoBehaviour
         }
         else{
             stopMovement = false;
+            cinematic_On = false;
             timeForVideo = 0.0f;
             EventManager.VideoEnded();
         }
@@ -419,16 +435,9 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void OnCollisionStay(Collision collision){
+   
 
-        if(collision.gameObject.layer.ToString() == "8"){
-            Debug.Log("Entro en contacto con un moveable");
-
-        }
-        
-    }
-
-     private void OnCollisionExit(Collision collision){
+    private void OnCollisionExit(Collision collision){
 
         if(collision.gameObject.layer.ToString() == "8"){
             animator.SetBool("push", false);
@@ -448,6 +457,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+  
     private void OnTriggerExit(Collider other){
         if(other.gameObject.tag == "Stairs"){
             climbPossible = false;
@@ -459,9 +469,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-        private void OnDisable(){
-            EventManager.TurnOnVideo -= eventoVideoStarted;
-        }
+    private void OnDisable(){
+        EventManager.TurnOnVideo -= EventoVideoStarted; //Suscribirse al evento de Inicio de Video
+        EventManager.StopMovForAnim -= EventStopMovement;
+        EventManager.RestartMovAfterAnim -= EventRestartMovement;
+
+    }
 
 
 

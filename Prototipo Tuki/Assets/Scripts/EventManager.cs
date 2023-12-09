@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 using System;
 
 public class EventManager : MonoBehaviour
@@ -24,7 +24,22 @@ public class EventManager : MonoBehaviour
         AccionInterruptor?.Invoke(id);
     }
 
-   
+
+    public static event Action DamageObject; 
+    public static void GnawObject(){
+        DamageObject?.Invoke();
+    }
+
+    public static event Action StopMovForAnim; 
+    public static void ActionStopMovement(){
+       StopMovForAnim?.Invoke();
+    }
+
+
+    public static event Action RestartMovAfterAnim; 
+    public static void RestartMovement(){
+       RestartMovAfterAnim?.Invoke();
+    }
 
     
 

@@ -7,6 +7,9 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField] private Rigidbody rg;
     [SerializeField] private Animator animator = null;
     [SerializeField] private Transform cajaCheck;
+    [SerializeField] private PlayerController varPlayerController;
+
+    private bool destroyPossible = false;
 
     void Start()
     {
@@ -28,17 +31,60 @@ public class PlayerController2 : MonoBehaviour
         }
 
 
+
+        //Destuir objetos
+        if(destroyPossible && varPlayerController.grounded){
+            if(Input.GetKeyDown(KeyCode.D)){
+                EventManager.GnawObject();
+                animator.SetBool("gnaw",true);
+                EventManager.ActionStopMovement();
+
+            }
+        }
+
+        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Roer1") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.94f){
+          
+            animator.SetBool("gnaw",false);
+            EventManager.RestartMovement();
+            
+        }
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Roer2") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.94f ){
+           
+            animator.SetBool("gnaw",false);
+            EventManager.RestartMovement();
+            
+        }
+        
+        
+
+
+
        
 
     }
 
-    private void OnCollisionEnter(Collision collision){
+  
 
+    private void OnTriggerEnter(Collider other){
 
-        if(collision.gameObject.tag.Equals("Floor")){
-            animator.SetBool("falling",false);
+        if(other.gameObject.tag.Equals("TriggerDest")){
+            //Debug.Log("Esta en contacto con un destruible");
+            destroyPossible = true;
         }
 
-        
     }
+
+     private void OnTriggerExit(Collider other){
+
+        if(other.gameObject.tag.Equals("TriggerDest")){
+            //Debug.Log("Esta en contacto con un destruible");
+            destroyPossible = false;
+        }
+
+    }
+
+
 }
