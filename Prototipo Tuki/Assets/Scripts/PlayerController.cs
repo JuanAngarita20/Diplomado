@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Accion Escalar Escalera
-        if(Input.GetKey("a") && climbPossible && (grounded == true)){
+        if(Input.GetKey("a") && climbPossible){
 
 
             /*if(colliderTransform.transform.rotation.eulerAngles.z == 90 ){
