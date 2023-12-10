@@ -9,6 +9,7 @@ using UnityEngineInternal;
 using UnityEngine.InputSystem;
 using System.Security;
 using System.Runtime.CompilerServices;
+using FMOD.Studio;
 
 
 enum State {
@@ -51,8 +52,9 @@ public class PlayerController : MonoBehaviour
     private float jumpMax = 0.0f;
     public float moveCollider = 0.0f;
 
-   
-
+    //Variables Audio
+    private EventInstance Pasos;
+    private EventInstance Para;
     //Safe rotation
      
   
@@ -69,6 +71,10 @@ public class PlayerController : MonoBehaviour
         EventManager.StopMovForAnim += EventStopMovement;
         EventManager.RestartMovAfterAnim += EventRestartMovement;
 
+        //Audio
+        Pasos = AudioManager.instance.CreateInstance(FMODEvents.instance.Pasos);
+        Para = AudioManager.instance.CreateInstance(FMODEvents.instance.Para);
+        
     }
 
     //Funciones de Eventos
@@ -88,12 +94,28 @@ public class PlayerController : MonoBehaviour
         Debug.Log("iniciar mov");
     }
 
+     private void PasosStart(){
+       
+        Pasos.start();
+    }
+    private void StopPasosSound()
+    {
+        // Detener la reproducción del evento de audio
+        Pasos.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
 
-
+    private void ParaStart(){
+       
+        Para.start();
+    }
+    
 
     // Update is called once per frame
     void Update()
     {
+
+       
+
 
         //Verificar si camara2 esta activada
         if(cinematic_On == true){
@@ -120,6 +142,8 @@ public class PlayerController : MonoBehaviour
                
                 
                 Debug.Log("Girar derecha");
+                
+                 
             }
             else{
                 dir_mov = Mov_Dir.right;
@@ -128,12 +152,24 @@ public class PlayerController : MonoBehaviour
 
             }
 
+            if (Input.GetKeyDown("right")){
+                PasosStart();
+                
+            }
             
-            //Caminar
+           
+
+            
             //Animacion
             animator.SetBool("isWalking",true);
 
            
+        }
+
+        if (Input.GetKeyUp("right") || Input.GetKeyUp("left")){
+                StopPasosSound();
+                ParaStart();
+                Debug.Log("a");
         }
         
         if(Input.GetKey("left") && !stopMovement){
@@ -147,8 +183,9 @@ public class PlayerController : MonoBehaviour
                 moveDetected = true;
                 
                 
-                
+                //StopPasosSound();
                 Debug.Log("Girar izq");
+                //ParaStart();
             }
             else{
                 dir_mov = Mov_Dir.left;
@@ -160,6 +197,10 @@ public class PlayerController : MonoBehaviour
 
             
             //EventoCaminar
+            if (Input.GetKeyDown("left")){
+                PasosStart();
+                
+            }
             //Animacion
             animator.SetBool("isWalking",true);
 
@@ -320,6 +361,7 @@ public class PlayerController : MonoBehaviour
             //Poner animacion Idle
             //Debug.Log("Animacion Still");
             //EventoChillidos
+             
             animator.SetBool("isWalking",false);
             //EventoDetener caminado
 
