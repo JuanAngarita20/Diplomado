@@ -238,8 +238,12 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks: []
-  Banks: []
+  MasterBanks:
+  - Master
+  Banks:
+  - LEV_1
+  - PROPS
+  - TUKI
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
