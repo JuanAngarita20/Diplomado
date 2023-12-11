@@ -77,7 +77,7 @@ public class SecurityCameraController : MonoBehaviour
 
             }
             if(playerDetected){
-                iniciarLaserCooldown();
+                iniciarLaserCooldown(); //Para interaccion de la camara con player (Laser rojo o verde)
                 Debug.DrawRay(rayo.origin,rayo.direction*distMaxLaser,Color.red);
             }
             else{
@@ -87,7 +87,11 @@ public class SecurityCameraController : MonoBehaviour
 
         }
         else{
-            camaraCooldown();
+            camaraCooldown();  //Para apagar o luego prender la camara despues de 7 seg
+
+            if(playerDetected){ //Para interaccion de la camara con player (Laser rojo o verde)
+                iniciarLaserCooldown();
+            }
         }
         
        
@@ -163,7 +167,7 @@ public class SecurityCameraController : MonoBehaviour
 
     private void camaraCooldown(){
 
-        if(laserCoolDown < 7){
+        if(laserCoolDown < 9){
             laserCoolDown += 1.0f * Time.deltaTime;
         }
         else{

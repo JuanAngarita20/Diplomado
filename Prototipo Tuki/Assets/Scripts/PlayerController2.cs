@@ -13,7 +13,7 @@ public class PlayerController2 : MonoBehaviour
 
     void Start()
     {
-        
+        EventManager.ReduceBattery += electricShockAnim; //Cuando un interruptor se activó, se le pide realizar la funcion reduceCharge;
     }
 
     // Update is called once per frame
@@ -58,6 +58,13 @@ public class PlayerController2 : MonoBehaviour
             EventManager.RestartMovement();
             
         }
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Shock") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f  && !animator.IsInTransition(0)){
+           
+            animator.SetBool("electricShock",false);
+            EventManager.RestartMovement();
+            
+        }
         
         
 
@@ -84,6 +91,14 @@ public class PlayerController2 : MonoBehaviour
             //Debug.Log("Esta en contacto con un destruible");
             destroyPossible = false;
         }
+
+    }
+
+    private void electricShockAnim(){
+
+        animator.SetBool("electricShock",true);
+        //EventoShock
+        EventManager.ActionStopMovement();
 
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class InterruptorController : MonoBehaviour
 {
     private bool shockPossible = false;
+    private bool noMovement;
     [SerializeField] private int idInterruptor;
 
 
@@ -14,7 +15,20 @@ public class InterruptorController : MonoBehaviour
     void Start()
     {
         battery = FindAnyObjectByType<GameController>();
-        
+        noMovement = false;
+
+        EventManager.StopMovForAnim += EventStopMove;
+        EventManager.RestartMovAfterAnim += EventRestartMove;
+    }
+
+     private void EventStopMove(){ //Respuesta al evento de Inicio de video
+        noMovement  = true;
+        //Debug.Log("stop mov");
+    }
+
+    private void EventRestartMove(){ //Respuesta al evento de Inicio de video
+        noMovement  = false;
+        Debug.Log("iniciar mov en interruptor");
     }
 
     // Update is called once per frame
@@ -22,7 +36,7 @@ public class InterruptorController : MonoBehaviour
     {
         //Evento triggerInterruptor
 
-        if(Input.GetKeyDown(KeyCode.S) && shockPossible && (battery.batteryCharge > 5.0f)){
+        if(Input.GetKeyDown(KeyCode.S) && shockPossible && (noMovement == false)){
             //Evento Bajar carga
             EventManager.triggerReduceBattery();
             EventManager.InterruptorTrigger(idInterruptor);

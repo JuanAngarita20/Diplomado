@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class GameController : MonoBehaviour
 
@@ -12,7 +13,7 @@ public class GameController : MonoBehaviour
     [SerializeField] public float batteryCharge = 30.0f;
     [SerializeField] private float batteryChargeRate = 0.03f;
     [SerializeField] private TMP_Text batterytext;
-
+    private bool noMovement;
 
     void Start()
     {
@@ -20,7 +21,9 @@ public class GameController : MonoBehaviour
         //batteryChargeRate = 0.05f;
 
         EventManager.ReduceBattery += reduceCharge; //Cuando un interruptor se activó, se le pide realizar la funcion reduceCharge;
+
         batterytext.text = "Bateria: 30%";
+        noMovement = false;
         
     }
 
@@ -28,13 +31,14 @@ public class GameController : MonoBehaviour
         shockActivated = true;
     }
 
-  
+
 
     // Update is called once per frame
     void Update()
     {
 
         batterytext.text = "Bateria: "+ Mathf.Floor(batteryCharge) + "%";
+        
 
 
         if(!shockActivated){
@@ -43,7 +47,7 @@ public class GameController : MonoBehaviour
         
         else{
             if(batteryCharge > 5){ //Verificar que bateria no pase a ser negativo
-                batteryCharge = batteryCharge-5.0f;
+                batteryCharge -= 5.0f;
                 Debug.Log("Bateria Descargada");
                 
             }

@@ -13,7 +13,7 @@ using FMOD.Studio;
 
 
 enum State {
-        normal=0, jumping = 1, goingUp = 2
+        normal=0, jumping = 1, goingUp = 2, falling = 3
     }
    
 enum Mov_Dir {
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
        
 
         //Verificar input para girar
-        if(Input.GetKey("right") && !stopMovement){
+        if(Input.GetKey("right") && !stopMovement && !(estado == State.goingUp)){
             
             /*characterRigidBody.transform.rotation = Quaternion.Euler(0, 0, 0);*/
             
@@ -167,12 +167,15 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Input.GetKeyUp("right") || Input.GetKeyUp("left")){
-                StopPasosSound();
-                ParaStart();
-                Debug.Log("a");
+            StopPasosSound();
+            ParaStart();
+            Debug.Log("a");
+
+            animator.SetBool("push", false);
+            Debug.Log(animator.GetBool("push"));
         }
         
-        if(Input.GetKey("left") && !stopMovement){
+        if(Input.GetKey("left") && !stopMovement && !(estado == State.goingUp)){
             
 
             if(dir_mov == Mov_Dir.right){
@@ -248,9 +251,12 @@ public class PlayerController : MonoBehaviour
             
 
         }
-        else{
-            animator.SetBool("escaleraIzq",false);
-            animator.SetBool("escaleraDer",false);
+        
+
+        if (Input.GetKeyUp("a") && climbPossible){
+           animator.SetBool("escaleraIzq",false);
+           animator.SetBool("escaleraDer",false);
+           estado = State.falling;
         }
 
         /*
@@ -298,7 +304,16 @@ public class PlayerController : MonoBehaviour
 
         if(Physics.CheckBox(myList[0].position,new Vector3(0.03f,0.7f,0.6f),Quaternion.identity,MoveMask)  && (grounded == true)){
             //Eventoenpuja
-            animator.SetBool("push", true);
+            
+            if(movement.x != 0){
+                animator.SetBool("push", true);
+                Debug.Log("Empizar animacion empujar");
+
+            }
+            
+            
+            
+            
 
             moveCollider +=1;
             
@@ -308,6 +323,7 @@ public class PlayerController : MonoBehaviour
             
             
         }
+        
         
 
 
@@ -333,6 +349,7 @@ public class PlayerController : MonoBehaviour
 
         if(characterRigidBody.velocity.y < -2f){
             grounded  = false;
+            estado = State.falling;
 
         }
 
@@ -353,6 +370,7 @@ public class PlayerController : MonoBehaviour
             moveCharacter(movement); // We call the function 'moveCharacter' in FixedUpdate for Physics movement
        }
        else{
+        
         timeForStill += 1.0f * Time.fixedDeltaTime; //Para activar idle
 
         if(timeForStill>0.1f){
