@@ -7,6 +7,10 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Tuki SFX")]
     [field: SerializeField] public EventReference Pasos {get; private set;}
     [field: SerializeField] public EventReference Para {get; private set;}
+    [field: SerializeField] public EventReference Salto {get; private set;}
+    [field: SerializeField] public EventReference Elect {get; private set;}
+    [field: SerializeField] public EventReference RoerS {get; private set;}
+
     public static FMODEvents instance {get; private set;}
 
     private void Awake()

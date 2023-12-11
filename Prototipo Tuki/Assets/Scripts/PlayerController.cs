@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     //Variables Audio
     private EventInstance Pasos;
     private EventInstance Para;
+    private EventInstance Salto;
     //Safe rotation
      
   
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour
         //Audio
         Pasos = AudioManager.instance.CreateInstance(FMODEvents.instance.Pasos);
         Para = AudioManager.instance.CreateInstance(FMODEvents.instance.Para);
+        Salto = AudioManager.instance.CreateInstance(FMODEvents.instance.Salto);
         
     }
 
@@ -107,6 +109,27 @@ public class PlayerController : MonoBehaviour
     private void ParaStart(){
        
         Para.start();
+    }
+
+    private void SaltoStart(){
+       
+        Salto.start();
+    }
+
+    //Prueba
+
+    private void PlayPasosSound()
+    {
+        // Obtener el estado actual de reproducción
+        Debug.Log(Input.GetKeyDown("right"));
+        PLAYBACK_STATE playbackState;
+        Pasos.getPlaybackState(out playbackState);
+
+        // Comprobar si el estado es diferente de PLAYING
+        if (playbackState != PLAYBACK_STATE.PLAYING)
+        {
+            PasosStart();
+        }
     }
     
 
@@ -152,10 +175,10 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            if (Input.GetKeyDown("right")){
+            /*if (Input.GetKeyDown("right")){
                 PasosStart();
                 
-            }
+            }*/
             
            
 
@@ -166,14 +189,7 @@ public class PlayerController : MonoBehaviour
            
         }
 
-        if (Input.GetKeyUp("right") || Input.GetKeyUp("left")){
-            StopPasosSound();
-            ParaStart();
-            Debug.Log("a");
-
-            animator.SetBool("push", false);
-            Debug.Log(animator.GetBool("push"));
-        }
+        
         
         if(Input.GetKey("left") && !stopMovement && !(estado == State.goingUp)){
             
@@ -200,14 +216,35 @@ public class PlayerController : MonoBehaviour
 
             
             //EventoCaminar
-            if (Input.GetKeyDown("left")){
+            /*if (Input.GetKeyDown("left")){
                 PasosStart();
                 
-            }
+            }*/
             //Animacion
             animator.SetBool("isWalking",true);
 
             
+        }
+
+        //Debug.Log(moveDetected);
+        
+        //Debug.Log(Input.GetKeyDown("left"));
+        
+        if ((Input.GetKey(KeyCode.RightArrow)  || Input.GetKey(KeyCode.LeftArrow)) && estado != State.jumping)
+        {
+            
+            if (moveDetected)
+            {
+                moveDetected = true;
+                grounded  = true;
+                PlayPasosSound(); // Iniciar sonido de pasos
+            }
+        }
+        else if (!moveDetected || !grounded) // Se ejecuta cuando se sueltan las teclas
+        {
+            moveDetected = false;
+            grounded  = false;
+            StopPasosSound(); // Detener sonido de pasos
         }
 
       
@@ -223,9 +260,15 @@ public class PlayerController : MonoBehaviour
             estado = State.jumping;
             //EventoSaltar
             animator.SetBool("jump",true);
-
+            SaltoStart();
             grounded  = false;
             
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && estado != State.jumping)
+        {
+            estado = State.jumping;
+            // Otras acciones cuando inicia el salto
         }
 
         //Accion Escalar Escalera

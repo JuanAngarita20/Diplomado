@@ -683,6 +683,27 @@ MonoBehaviour:
       Data3: -1844011879
       Data4: -65232677
     Path: event:/Tuki/Para
+  <Salto>k__BackingField:
+    Guid:
+      Data1: -370867028
+      Data2: 1223704375
+      Data3: 839263141
+      Data4: 1023355522
+    Path: event:/Tuki/SaltoCaer
+  <Elect>k__BackingField:
+    Guid:
+      Data1: 1281113315
+      Data2: 1148979238
+      Data3: -1886735952
+      Data4: -173200414
+    Path: event:/Tuki/CargaN
+  <RoerS>k__BackingField:
+    Guid:
+      Data1: -81903155
+      Data2: 1200180276
+      Data3: -626664829
+      Data4: 701919919
+    Path: event:/Tuki/Roer
 --- !u!1 &176827794
 GameObject:
   m_ObjectHideFlags: 0
@@ -5598,7 +5619,7 @@ Transform:
   m_GameObject: {fileID: 1914244857}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.12, y: 27.56, z: -1.7}
+  m_LocalPosition: {x: 36.83, y: 49.82, z: -1.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

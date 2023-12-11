@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
 
 public class PlayerController2 : MonoBehaviour
 {
@@ -11,9 +12,23 @@ public class PlayerController2 : MonoBehaviour
 
     private bool destroyPossible = false;
 
+    private EventInstance Elect;
+    private EventInstance RoerS;
+
     void Start()
     {
         EventManager.ReduceBattery += electricShockAnim; //Cuando un interruptor se activó, se le pide realizar la funcion reduceCharge;
+        Elect = AudioManager.instance.CreateInstance(FMODEvents.instance.Elect);
+        RoerS = AudioManager.instance.CreateInstance(FMODEvents.instance.RoerS);
+    }
+
+    private void ElectStart(){
+       
+        Elect.start();
+    }
+    private void RoerStart(){
+       
+        RoerS.start();
     }
 
     // Update is called once per frame
@@ -38,6 +53,7 @@ public class PlayerController2 : MonoBehaviour
                 EventManager.GnawObject();
                 animator.SetBool("gnaw",true);
                 //EventoRoer
+                RoerStart();
                 EventManager.ActionStopMovement();
 
             }
@@ -98,6 +114,7 @@ public class PlayerController2 : MonoBehaviour
 
         animator.SetBool("electricShock",true);
         //EventoShock
+        ElectStart();
         EventManager.ActionStopMovement();
 
     }
