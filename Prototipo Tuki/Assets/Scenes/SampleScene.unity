@@ -669,6 +669,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1186bb8e8c4a8d54f80e2691fc063107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Ambiente>k__BackingField:
+    Guid:
+      Data1: -1409680660
+      Data2: 1097121835
+      Data3: 975741881
+      Data4: 2053756083
+    Path: event:/Ambient/Alcantarilla
   <Pasos>k__BackingField:
     Guid:
       Data1: -1048763731
@@ -699,11 +706,25 @@ MonoBehaviour:
     Path: event:/Tuki/CargaN
   <RoerS>k__BackingField:
     Guid:
-      Data1: -81903155
-      Data2: 1200180276
-      Data3: -626664829
-      Data4: 701919919
-    Path: event:/Tuki/Roer
+      Data1: -1278025272
+      Data2: 1220004644
+      Data3: 1638120098
+      Data4: 1366611173
+    Path: event:/Tuki/RoerN
+  <Chillidos>k__BackingField:
+    Guid:
+      Data1: -1440753982
+      Data2: 1109564970
+      Data3: -1683220339
+      Data4: 1127185158
+    Path: event:/Tuki/Chillidos
+  <Madera>k__BackingField:
+    Guid:
+      Data1: -506531488
+      Data2: 1155945784
+      Data3: -1156343382
+      Data4: -1116829259
+    Path: event:/Props/MaderaN
 --- !u!1 &176827794
 GameObject:
   m_ObjectHideFlags: 0

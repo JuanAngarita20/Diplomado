@@ -6,7 +6,9 @@ using FMOD.Studio;
 
 public class AudioManager : MonoBehaviour
 {
+    private EventInstance ambienceEventInstance;
     public static AudioManager instance {get; private set;}
+
 
     private void Awake()
     {
@@ -17,6 +19,13 @@ public class AudioManager : MonoBehaviour
         instance = this;
     }
 
+    private void Start(){
+        EmpezarAmbiente(FMODEvents.instance.Ambiente);
+    }
+    private void EmpezarAmbiente(EventReference ambienceEventReference){
+        ambienceEventInstance = CreateInstance(ambienceEventReference);
+        ambienceEventInstance.start();
+    }
     public void PlayOneShot(EventReference sound, Vector3 worldPos){
          RuntimeManager.PlayOneShot(sound, worldPos);
     }
@@ -25,5 +34,7 @@ public class AudioManager : MonoBehaviour
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
         return eventInstance;
     }
+
+
 }
 

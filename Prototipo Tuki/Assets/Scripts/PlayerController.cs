@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
     private EventInstance Pasos;
     private EventInstance Para;
     private EventInstance Salto;
+    private EventInstance Chillidos;
+    private bool isChillidosPlaying = false;
     //Safe rotation
      
   
@@ -76,6 +78,7 @@ public class PlayerController : MonoBehaviour
         Pasos = AudioManager.instance.CreateInstance(FMODEvents.instance.Pasos);
         Para = AudioManager.instance.CreateInstance(FMODEvents.instance.Para);
         Salto = AudioManager.instance.CreateInstance(FMODEvents.instance.Salto);
+        Chillidos = AudioManager.instance.CreateInstance(FMODEvents.instance.Chillidos);
         
     }
 
@@ -100,6 +103,7 @@ public class PlayerController : MonoBehaviour
        
         Pasos.start();
     }
+
     private void StopPasosSound()
     {
         // Detener la reproducción del evento de audio
@@ -107,7 +111,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void ParaStart(){
-       
+        Debug.Log("para");
         Para.start();
     }
 
@@ -116,12 +120,25 @@ public class PlayerController : MonoBehaviour
         Salto.start();
     }
 
+    private void ChillidosStart(){
+       
+        Chillidos.start();
+    }
+    private void StopChillidosSound()
+    {
+        if (isChillidosPlaying)
+        {
+            Chillidos.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            isChillidosPlaying = false;
+        }
+    }
+
     //Prueba
 
     private void PlayPasosSound()
     {
         // Obtener el estado actual de reproducción
-        Debug.Log(Input.GetKeyDown("right"));
+        //Debug.Log(Input.GetKeyDown("right"));
         PLAYBACK_STATE playbackState;
         Pasos.getPlaybackState(out playbackState);
 
@@ -131,6 +148,16 @@ public class PlayerController : MonoBehaviour
             PasosStart();
         }
     }
+
+    private void PlayChillidosSound()
+    {
+        if (!isChillidosPlaying)
+        {
+            ChillidosStart();
+            isChillidosPlaying = true;
+        }
+    }
+
     
 
     // Update is called once per frame
@@ -229,7 +256,8 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(moveDetected);
         
         //Debug.Log(Input.GetKeyDown("left"));
-        
+
+        //Caminado
         if ((Input.GetKey(KeyCode.RightArrow)  || Input.GetKey(KeyCode.LeftArrow)) && estado != State.jumping)
         {
             
@@ -246,6 +274,8 @@ public class PlayerController : MonoBehaviour
             grounded  = false;
             StopPasosSound(); // Detener sonido de pasos
         }
+
+        
 
       
         
@@ -403,7 +433,16 @@ public class PlayerController : MonoBehaviour
 
         }*/
         
-   
+
+        //Chillidos
+        if (!moveDetected && estado == State.normal)
+        {
+            PlayChillidosSound(); // Reproducir sonido de chillidos
+        }
+        else if (moveDetected || estado != State.normal)
+        {
+            StopChillidosSound(); // Detener sonido de chillidos
+        }
 
     }
 
@@ -422,7 +461,8 @@ public class PlayerController : MonoBehaviour
             //Poner animacion Idle
             //Debug.Log("Animacion Still");
             //EventoChillidos
-             
+            //ParaStart();
+           
             animator.SetBool("isWalking",false);
             //EventoDetener caminado
 

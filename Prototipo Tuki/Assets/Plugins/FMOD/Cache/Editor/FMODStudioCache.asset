@@ -69,7 +69,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/LEV_1.bank
   Name: LEV_1
   StudioPath: bank:/LEV_1
-  lastModified: 638379043313476512
+  lastModified: 638379853432289698
   FileSizes:
   - Name: Desktop
     Value: 4658848
@@ -175,13 +175,13 @@ MonoBehaviour:
     Data4: 1127185158
   Banks:
   - {fileID: 1114168804917990287}
-  IsStream: 0
+  IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2750
+  Length: 3700
 --- !u!114 &-2332311413020560563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +236,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 60708
+--- !u!114 &-1619241344575545907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Props/MaderaN
+  m_EditorClassIdentifier: 
+  Path: event:/Props/MaderaN
+  Guid:
+    Data1: -506531488
+    Data2: 1155945784
+    Data3: -1156343382
+    Data4: -1116829259
+  Banks:
+  - {fileID: 5529587446951108698}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 647
 --- !u!114 &-940262672433464498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +305,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638379043313516394
+  lastModified: 638379853432319589
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -322,12 +349,14 @@ MonoBehaviour:
   - {fileID: 8176768016817679550}
   - {fileID: -940262672433464498}
   - {fileID: 2124487048436683138}
+  - {fileID: 3897655239320192281}
+  - {fileID: -1619241344575545907}
   EditorParameters: []
   MasterBanks:
   - {fileID: -186681564966978377}
   StringsBanks:
   - {fileID: 4682174106574564516}
-  cacheTime: 638379043321070001
+  cacheTime: 638379853441610977
   cacheVersion: 131609
 --- !u!114 &94065397916185088
 MonoBehaviour:
@@ -425,10 +454,10 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/TUKI.bank
   Name: TUKI
   StudioPath: bank:/TUKI
-  lastModified: 638379043321070001
+  lastModified: 638379853441610977
   FileSizes:
   - Name: Desktop
-    Value: 2536928
+    Value: 2608096
   Exists: 1
 --- !u!114 &1244110685133970208
 MonoBehaviour:
@@ -538,6 +567,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 7500
+--- !u!114 &3897655239320192281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/RoerN
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/RoerN
+  Guid:
+    Data1: -1278025272
+    Data2: 1220004644
+    Data3: 1638120098
+    Data4: 1366611173
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &4682174106574564516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,10 +609,10 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638379043313724680
+  lastModified: 638379853432339940
   FileSizes:
   - Name: Desktop
-    Value: 1714
+    Value: 1796
   Exists: 1
 --- !u!114 &5458050827520572937
 MonoBehaviour:
@@ -600,10 +656,10 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/PROPS.bank
   Name: PROPS
   StudioPath: bank:/PROPS
-  lastModified: 638379043315593160
+  lastModified: 638379853435355305
   FileSizes:
   - Name: Desktop
-    Value: 566112
+    Value: 567136
   Exists: 1
 --- !u!114 &7445443163630416912
 MonoBehaviour:
@@ -654,7 +710,7 @@ MonoBehaviour:
   - {fileID: 1114168804917990287}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
