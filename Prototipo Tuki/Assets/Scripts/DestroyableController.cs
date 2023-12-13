@@ -47,7 +47,7 @@ public class DestroyableController : MonoBehaviour
             Debug.Log("Objeto destruido");
             MaderaStart();
         }
-
+        
         
     }
 

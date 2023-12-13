@@ -35,7 +35,6 @@ public class TriggerDestroyable : MonoBehaviour
             //Debug.Log("Trigger y roer activado");
             EventManager.GnawObject(idTrigger);
             EventManager.StartGnawAnim();
-            MaderaStart();
         }
         
     }
