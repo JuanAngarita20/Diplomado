@@ -6,8 +6,9 @@ public class DestroyableController : MonoBehaviour
 {
 
     [SerializeField] private int Hp = 3;
-    [SerializeField] GameObject objectToDestroy;
+    [SerializeField] private int idTriggThatDestroy;
     private EventInstance Madera;
+
 
     private void MaderaStart(){
         //Debug.Log("Objeto destruido");
@@ -15,33 +16,46 @@ public class DestroyableController : MonoBehaviour
     }
 
     void Start()
-    {
-        EventManager.DamageObject += quitarHpObjeto; //Suscribirse al evento de Inicio de Video
 
+    {
+        EventManager.DamageObject += quitarHpObjeto;
         //Audio
         Madera = AudioManager.instance.CreateInstance(FMODEvents.instance.Madera);
         
+        
+        
+        
+    }
+
+    private void quitarHpObjeto(float idTrigger){
+        //Debug.Log(idTrigger);
+
+        if(idTrigger == idTriggThatDestroy){//Verificar que trigger destruible sea el correcto
+            Debug.Log("me quitaste Hp");
+            Hp--;
+
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
         if(Hp < 1){
-            Destroy(objectToDestroy);
+            Destroy(gameObject);
+            //Destroy(objectToDestroy);
             Debug.Log("Objeto destruido");
             MaderaStart();
         }
+
         
-    }
-
-    private void quitarHpObjeto(){
-
-        Debug.Log("me quitaste Hp");
-        Hp--;
-
     }
 
     private void OnDisable(){
         EventManager.DamageObject -= quitarHpObjeto;
     }
+
+   
+
+    
 }

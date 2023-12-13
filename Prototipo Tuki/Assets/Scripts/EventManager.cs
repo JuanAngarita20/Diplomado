@@ -25,9 +25,14 @@ public class EventManager : MonoBehaviour
     }
 
 
-    public static event Action DamageObject; 
-    public static void GnawObject(){
-        DamageObject?.Invoke();
+    public static event Action<float> DamageObject; 
+    public static void GnawObject(float id){
+        DamageObject?.Invoke(id);
+    }
+
+    public static event Action AnimGnaw; 
+    public static void StartGnawAnim(){
+        AnimGnaw?.Invoke();
     }
 
     public static event Action StopMovForAnim; 
@@ -39,6 +44,22 @@ public class EventManager : MonoBehaviour
     public static event Action RestartMovAfterAnim; 
     public static void RestartMovement(){
        RestartMovAfterAnim?.Invoke();
+    }
+
+
+    public static event Action StartLosingControl; 
+    public static void BatteryOver80(){
+        StartLosingControl?.Invoke();
+    }
+
+    public static event Action RegainControl; 
+    public static void BatteryUnder80(){
+        RegainControl?.Invoke();
+    }
+
+    public static event Action GameOver; 
+    public static void BatteryReach100(){
+        GameOver?.Invoke();
     }
 
     

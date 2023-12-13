@@ -112,5 +112,9 @@ public class PlataformasController : MonoBehaviour
         
     }
 
+    private void OnDisable()
+    {
+        EventManager.AccionInterruptor -= RotarPlataforma;
+    }
     
 }

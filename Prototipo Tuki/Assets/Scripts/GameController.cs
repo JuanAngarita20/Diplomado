@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 
 {
     
     private bool shockActivated = false;
+    private bool noMovement;
+    private bool loseControl;
+    private bool gameOver;
+     private bool restartButton;
+    float timeForRestart;
 
     [SerializeField] public float batteryCharge = 30.0f;
     [SerializeField] private float batteryChargeRate = 0.03f;
     [SerializeField] private TMP_Text batterytext;
-    private bool noMovement;
+    [SerializeField] private GameObject panelMenu;
+    [SerializeField] private GameObject  botonRestart;
+    
+    
 
     void Start()
     {
@@ -24,11 +34,22 @@ public class GameController : MonoBehaviour
 
         batterytext.text = "Bateria: 30%";
         noMovement = false;
-        
+        loseControl = false;
+        gameOver = false;
+        restartButton = false;
+
+        panelMenu.SetActive(false);
+        botonRestart.SetActive(false);
+       
     }
+
 
     private void reduceCharge(){
         shockActivated = true;
+    }
+
+    public void restartLevel(){
+        restartButton = true;       
     }
 
 
@@ -37,7 +58,17 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
+        batteryTextColor();
         batterytext.text = "Bateria: "+ Mathf.Floor(batteryCharge) + "%";
+
+        if(batteryCharge > 99){
+            EventManager.BatteryReach100();
+            gameOver = true;
+            panelMenu.SetActive(true);
+            botonRestart.SetActive(true);
+            batterytext.text = "GAME OVER";
+        }
+        
         
 
 
@@ -46,7 +77,7 @@ public class GameController : MonoBehaviour
         }
         
         else{
-            if(batteryCharge > 5){ //Verificar que bateria no pase a ser negativo
+            if(batteryCharge > 5 && !gameOver){ //Verificar que bateria no pase a ser negativo
                 batteryCharge -= 5.0f;
                 Debug.Log("Bateria Descargada");
                 
@@ -57,7 +88,50 @@ public class GameController : MonoBehaviour
             
 
         //Debug.Log(batteryCharge);
+        if(batteryCharge > 80 && (loseControl == false)){
+            //Confundir
+            EventManager.BatteryOver80();
+            loseControl = true;
+        }
+        if(loseControl && batteryCharge < 79){
+            EventManager.BatteryUnder80();
+            loseControl = false;
+        }
+
+        if(restartButton){
+
+            if(timeForRestart < 2){
+                timeForRestart += 1.0f * Time.deltaTime;
+            }
+            else{
+                SceneManager.LoadScene("Nivel1");
+            }
+
+        }
         
+        
+    }
+
+    private void batteryTextColor(){
+        if(batteryCharge < 30){ //verde
+            batterytext.color = new Color (0,1,0,1);
+        }
+        else if(batteryCharge >= 30 && batteryCharge < 60){ //amarillo
+            batterytext.color = new Color (0.9f,0.9f,0.1f,1);
+        }
+        else if(batteryCharge >= 60 && batteryCharge < 80){ //Naranja
+            batterytext.color = new Color (1,0.5f,0,1);
+        }
+        else if(batteryCharge >= 80){
+            batterytext.color = new Color (1,0,0,1); //Rojo
+        }
+        else {
+            batterytext.color = new Color (0,0,0,1);
+        }
+    }
+
+    private void OnDisable(){
+        EventManager.ReduceBattery -= reduceCharge;
     }
 
 }

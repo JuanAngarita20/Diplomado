@@ -29,7 +29,7 @@ public class InterruptorController : MonoBehaviour
 
     private void EventRestartMove(){ //Respuesta al evento de Inicio de video
         noMovement  = false;
-        Debug.Log("iniciar mov en interruptor");
+        //Debug.Log("iniciar mov en interruptor");
     }
 
     // Update is called once per frame
@@ -65,6 +65,13 @@ public class InterruptorController : MonoBehaviour
         if(other.gameObject.tag == "Player"){
            shockPossible= false;
         }
+
+    }
+
+
+    private void OnDisable(){
+        EventManager.StopMovForAnim -= EventStopMove;
+        EventManager.RestartMovAfterAnim -= EventRestartMove;
 
     }
 }

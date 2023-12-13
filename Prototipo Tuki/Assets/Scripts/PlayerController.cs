@@ -44,7 +44,8 @@ public class PlayerController : MonoBehaviour
     private bool climbPossible  = false;
     private bool stopMovement  = false;
     public bool grounded = false;
-     public bool cinematic_On = false;
+    public bool cinematic_On = false;
+    public bool loseControl = false;
     
 
     private float timeForVideo = 0.0f;
@@ -73,6 +74,9 @@ public class PlayerController : MonoBehaviour
         EventManager.TurnOnVideo += EventoVideoStarted; //Suscribirse al evento de Inicio de Video
         EventManager.StopMovForAnim += EventStopMovement;
         EventManager.RestartMovAfterAnim += EventRestartMovement;
+        EventManager.StartLosingControl += EventLosingControl;
+        EventManager.RegainControl += EventRegainControl;
+        EventManager.GameOver += EventGameOver;
 
         //Audio
         Pasos = AudioManager.instance.CreateInstance(FMODEvents.instance.Pasos);
@@ -96,10 +100,23 @@ public class PlayerController : MonoBehaviour
 
     private void EventRestartMovement(){ //Respuesta al evento de Inicio de video
         stopMovement  = false;
-        Debug.Log("iniciar mov");
+        //Debug.Log("iniciar mov");
     }
 
-     private void PasosStart(){
+    private void EventLosingControl(){ //Respuesta al evento de Inicio de video
+        loseControl = true;
+    }
+    private void EventRegainControl(){ //Respuesta al evento de Inicio de video
+        loseControl = false;
+    }
+
+     private void EventGameOver(){ //Respuesta al evento de Inicio de video
+        stopMovement = true;
+    }
+
+
+    //EVENTOS AUDIO
+    private void PasosStart(){
        
         Pasos.start();
     }
@@ -164,9 +181,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-       
-
-
+    
         //Verificar si camara2 esta activada
         if(cinematic_On == true){
             iniciarvideo();
@@ -180,40 +195,42 @@ public class PlayerController : MonoBehaviour
             
             /*characterRigidBody.transform.rotation = Quaternion.Euler(0, 0, 0);*/
             
-            if(dir_mov == Mov_Dir.left){
-            
+            if(!loseControl){
+                if(dir_mov == Mov_Dir.left){
+                    characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
+                    dir_mov = Mov_Dir.right;
+                    movement = new Vector3(0.0f, 0.0f ,0.0f);
+                    moveDetected = true;
+                    Debug.Log("Girar derecha");
                 
-                characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
-               
-                dir_mov = Mov_Dir.right;
-                movement = new Vector3(0.0f, 0.0f ,0.0f);
-                moveDetected = true;
-                
-               
-                
-                Debug.Log("Girar derecha");
-                
-                 
-            }
-            else{
-                dir_mov = Mov_Dir.right;
-                movement = new Vector3(1.0f, 0.0f ,0.0f);
-                moveDetected = true;
+                }
+                else{
+                    dir_mov = Mov_Dir.right;
+                    movement = new Vector3(1.0f, 0.0f ,0.0f);
+                    moveDetected = true;
+
+                }
 
             }
+            else{ //invertrir controles
+             if(dir_mov == Mov_Dir.right){
+                    characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
+                    dir_mov = Mov_Dir.left;
+                    movement = new Vector3(0.0f, 0.0f ,0.0f);
+                    moveDetected = true;
+                    Debug.Log("Girar izq");
+                }
+                else{
+                    dir_mov = Mov_Dir.left;
+                    movement = new Vector3(-1.0f, 0.0f ,0.0f);
+                    moveDetected = true;
+                }
 
-            /*if (Input.GetKeyDown("right")){
-                PasosStart();
-                
-            }*/
-            
-           
-
+            }
             
             //Animacion
             animator.SetBool("isWalking",true);
 
-           
         }
 
         
@@ -221,32 +238,38 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKey("left") && !stopMovement && !(estado == State.goingUp)){
             
 
-            if(dir_mov == Mov_Dir.right){
-                characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
-                
-                dir_mov = Mov_Dir.left;
-                movement = new Vector3(0.0f, 0.0f ,0.0f);
-                moveDetected = true;
-                
-                
-                //StopPasosSound();
-                Debug.Log("Girar izq");
-                //ParaStart();
-            }
-            else{
-                dir_mov = Mov_Dir.left;
-                movement = new Vector3(-1.0f, 0.0f ,0.0f);
-                moveDetected = true;
+            if(!loseControl){
+                if(dir_mov == Mov_Dir.right){
+                    characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
+                    dir_mov = Mov_Dir.left;
+                    movement = new Vector3(0.0f, 0.0f ,0.0f);
+                    moveDetected = true;
+                    Debug.Log("Girar izq");
+                }
+                else{
+                    dir_mov = Mov_Dir.left;
+                    movement = new Vector3(-1.0f, 0.0f ,0.0f);
+                    moveDetected = true;
+                }
 
             }
-
-
-            
-            //EventoCaminar
-            /*if (Input.GetKeyDown("left")){
-                PasosStart();
+            else{ // invertir controles
+                 if(dir_mov == Mov_Dir.left){
+                    characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
+                    dir_mov = Mov_Dir.right;
+                    movement = new Vector3(0.0f, 0.0f ,0.0f);
+                    moveDetected = true;
+                    Debug.Log("Girar derecha");
                 
-            }*/
+                }
+                else{
+                    dir_mov = Mov_Dir.right;
+                    movement = new Vector3(1.0f, 0.0f ,0.0f);
+                    moveDetected = true;
+
+                }
+            }
+           
             //Animacion
             animator.SetBool("isWalking",true);
 
@@ -258,26 +281,21 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(Input.GetKeyDown("left"));
 
         //Caminado
-        if ((Input.GetKey(KeyCode.RightArrow)  || Input.GetKey(KeyCode.LeftArrow)) && estado != State.jumping)
+
+        if ((Input.GetKey(KeyCode.RightArrow)  || Input.GetKey(KeyCode.LeftArrow)) && estado != State.jumping) //Logica para Eventos SONIDO
         {
             
             if (moveDetected)
             {
-                moveDetected = true;
-                grounded  = true;
                 PlayPasosSound(); // Iniciar sonido de pasos
             }
         }
         else if (!moveDetected || !grounded) // Se ejecuta cuando se sueltan las teclas
         {
-            moveDetected = false;
-            grounded  = false;
             StopPasosSound(); // Detener sonido de pasos
         }
-
         
-
-      
+        
         
         //movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f ,0.0f);
         
@@ -326,10 +344,16 @@ public class PlayerController : MonoBehaviour
         }
         
 
-        if (Input.GetKeyUp("a") && climbPossible){
+        if (Input.GetKeyUp("a") && climbPossible){ //Pra activar estado de caer cuando se suelta la tecla "a"
            animator.SetBool("escaleraIzq",false);
            animator.SetBool("escaleraDer",false);
            estado = State.falling;
+        }
+
+
+        if (Input.GetKeyUp("right") || Input.GetKeyUp("left")){
+            animator.SetBool("push", false);
+            //Debug.Log(animator.GetBool("push"));
         }
 
         /*
@@ -383,10 +407,6 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Empizar animacion empujar");
 
             }
-            
-            
-            
-            
 
             moveCollider +=1;
             
@@ -624,6 +644,9 @@ public class PlayerController : MonoBehaviour
         EventManager.TurnOnVideo -= EventoVideoStarted; //Suscribirse al evento de Inicio de Video
         EventManager.StopMovForAnim -= EventStopMovement;
         EventManager.RestartMovAfterAnim -= EventRestartMovement;
+        EventManager.StartLosingControl -= EventLosingControl;
+        EventManager.RegainControl -= EventRegainControl;
+        EventManager.GameOver -= EventGameOver;
 
     }
 

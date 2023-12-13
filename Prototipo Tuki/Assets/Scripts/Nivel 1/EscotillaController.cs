@@ -119,5 +119,8 @@ public class EscotillaController : MonoBehaviour
         }
         
     }
-
+    
+    private void OnDisable(){
+        EventManager.AccionInterruptor -= RotarPlataforma;
+    }
 }

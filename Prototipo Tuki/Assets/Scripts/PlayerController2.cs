@@ -9,8 +9,10 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField] private Animator animator = null;
     [SerializeField] private Transform cajaCheck;
     [SerializeField] private PlayerController varPlayerController;
+    
 
     private bool destroyPossible = false;
+    
 
     private EventInstance Elect;
     private EventInstance RoerS;
@@ -18,6 +20,9 @@ public class PlayerController2 : MonoBehaviour
     void Start()
     {
         EventManager.ReduceBattery += electricShockAnim; //Cuando un interruptor se activó, se le pide realizar la funcion reduceCharge;
+        EventManager.AnimGnaw +=  GnawAnim; // Cuando roen, activar animacion y sonido
+
+
         Elect = AudioManager.instance.CreateInstance(FMODEvents.instance.Elect);
         RoerS = AudioManager.instance.CreateInstance(FMODEvents.instance.RoerS);
     }
@@ -29,6 +34,22 @@ public class PlayerController2 : MonoBehaviour
     private void RoerStart(){
        
         RoerS.start();
+    }
+
+    private void GnawAnim(){
+        
+        //Destuir objetos
+        if(varPlayerController.grounded){
+    
+            animator.SetBool("gnaw",true);
+            EventManager.ActionStopMovement();
+            
+            //EventoRoer
+            RoerStart();
+            
+
+            
+        }
     }
 
     // Update is called once per frame
@@ -46,18 +67,6 @@ public class PlayerController2 : MonoBehaviour
         }
 
 
-
-        //Destuir objetos
-        if(destroyPossible && varPlayerController.grounded){
-            if(Input.GetKeyDown(KeyCode.D)){
-                EventManager.GnawObject();
-                animator.SetBool("gnaw",true);
-                //EventoRoer
-                RoerStart();
-                EventManager.ActionStopMovement();
-
-            }
-        }
 
         //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
 
@@ -81,11 +90,6 @@ public class PlayerController2 : MonoBehaviour
             EventManager.RestartMovement();
             
         }
-        
-        
-
-
-
        
 
     }
@@ -117,6 +121,10 @@ public class PlayerController2 : MonoBehaviour
         ElectStart();
         EventManager.ActionStopMovement();
 
+    }
+
+    private void OnDisable(){
+        EventManager.ReduceBattery -= electricShockAnim;
     }
 
 

@@ -177,6 +177,10 @@ public class SecurityCameraController : MonoBehaviour
 
     }
 
+    private void OnDisable(){
+        EventManager.AccionInterruptor -= InterruptorCamara;
+    }
+
 
 
 
