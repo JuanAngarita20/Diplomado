@@ -9,6 +9,7 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField] private Animator animator = null;
     [SerializeField] private Transform cajaCheck;
     [SerializeField] private PlayerController varPlayerController;
+    [SerializeField] private GameObject ModeloTuki;
     
 
     private bool destroyPossible = false;
@@ -19,6 +20,7 @@ public class PlayerController2 : MonoBehaviour
 
     void Start()
     {
+        //animator = gameObject.GetComponentInChildren<Animator>();
         EventManager.ReduceBattery += electricShockAnim; //Cuando un interruptor se activó, se le pide realizar la funcion reduceCharge;
         EventManager.AnimGnaw +=  GnawAnim; // Cuando roen, activar animacion y sonido
 
@@ -125,6 +127,7 @@ public class PlayerController2 : MonoBehaviour
 
     private void OnDisable(){
         EventManager.ReduceBattery -= electricShockAnim;
+        EventManager.AnimGnaw -=  GnawAnim; // Cuando roen, activar animacion y sonido
     }
 
 

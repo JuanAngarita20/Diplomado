@@ -41,11 +41,12 @@ public class PlayerController : MonoBehaviour
     public Vector3 movement; 
     private bool checkWallOnFront = false;
     private bool moveDetected = false;
-    private bool climbPossible  = false;
+    public bool climbPossible  = false;
     private bool stopMovement  = false;
     public bool grounded = false;
     public bool cinematic_On = false;
     public bool loseControl = false;
+    public bool pushing = false;
     
 
     private float timeForVideo = 0.0f;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
     private EventInstance Para;
     private EventInstance Salto;
     private EventInstance Chillidos;
+  
     private bool isChillidosPlaying = false;
     //Safe rotation
      
@@ -282,7 +284,7 @@ public class PlayerController : MonoBehaviour
 
         //Caminado
 
-        if ((Input.GetKey(KeyCode.RightArrow)  || Input.GetKey(KeyCode.LeftArrow)) && estado != State.jumping) //Logica para Eventos SONIDO
+        if ((Input.GetKey(KeyCode.RightArrow)  || Input.GetKey(KeyCode.LeftArrow)) && estado != State.jumping && grounded) //Logica para Eventos SONIDO
         {
             
             if (moveDetected)
@@ -300,16 +302,23 @@ public class PlayerController : MonoBehaviour
         //movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f ,0.0f);
         
         
-        if(Input.GetKeyDown("space") && jumpMax < 1){
+        if(Input.GetKeyDown("space") && jumpMax < 1 && !pushing){
 
             jumpMax++;
     
             characterRigidBody.AddForce(Vector3.up*jumpStrength,ForceMode.Impulse);
             estado = State.jumping;
+
             //EventoSaltar
             animator.SetBool("jump",true);
             SaltoStart();
+
             grounded  = false;
+
+            //Mover Box de Fisicas
+            /*myList[0].localPosition = new Vector3(2.419f, 1.16f, 0.0f);
+            colliderTransform.localPosition =  new Vector3(0.0f, 0.85f, 0.0f);*/
+           
             
         }
 
@@ -326,6 +335,8 @@ public class PlayerController : MonoBehaviour
             /*if(colliderTransform.transform.rotation.eulerAngles.z == 90 ){
                 colliderTransform.transform.Rotate(new Vector3(0f, 0f, 1f),90);
             }*/
+
+            
 
             if(dir_mov == Mov_Dir.left){
                 animator.SetBool("escaleraIzq",true);
@@ -353,6 +364,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyUp("right") || Input.GetKeyUp("left")){
             animator.SetBool("push", false);
+            EventManager.NolongerPushing();
+            pushing = false;
             //Debug.Log(animator.GetBool("push"));
         }
 
@@ -402,9 +415,11 @@ public class PlayerController : MonoBehaviour
         if(Physics.CheckBox(myList[0].position,new Vector3(0.03f,0.7f,0.6f),Quaternion.identity,MoveMask)  && (grounded == true)){
             //Eventoenpuja
             
-            if(movement.x != 0){
+            if(movement.x != 0 && !pushing){
                 animator.SetBool("push", true);
+                pushing = true;
                 Debug.Log("Empizar animacion empujar");
+                EventManager.CurrentlyPushing();
 
             }
 
@@ -526,6 +541,18 @@ public class PlayerController : MonoBehaviour
             
         }
 
+        /*if(estado == State.falling){
+
+            if(!checkWallOnFront){
+                Vector3 moveVector = direction*speed;
+                characterRigidBody.velocity = new Vector3(moveVector.x,characterRigidBody.velocity.y*1.02f, characterRigidBody.velocity.z);
+
+            }
+          
+            
+            
+        }*/
+
         //Modo movimiento 2 - Fisicas No buenas en modo Rapido - Sirve en modo lento en speed = 20
 
         
@@ -581,15 +608,23 @@ public class PlayerController : MonoBehaviour
 
         if(collision.gameObject.tag.Equals("Floor")){
             estado = State.normal;
+            movement.y = 0f; //Quitar peso gravedad
             jumpMax = 0;
             animator.SetBool("escaleraIzq",false);
             animator.SetBool("escaleraDer",false);
             animator.SetBool("jump",false);
-            //Eventoempujar(Talves)
-            animator.SetBool("push", false);
-            //animator.SetBool("falling",false);
+
+            //Evento empujar(Talves)
+
+            //animator.SetBool("push", false);
+            //EventManager.NolongerPushing();
+            
 
             grounded = true;
+
+            //Regresar box de fisicas
+            /*myList[0].localPosition = new Vector3(2.419f, 0.16f, 0.0f);
+            colliderTransform.localPosition =  new Vector3(0.0f, -0.15f, 0.0f);*/
 
             /*if(colliderTransform.transform.rotation.eulerAngles.z == 180 ){
                 colliderTransform.transform.Rotate(new Vector3(0f, 0f, 1f),-90);
@@ -612,6 +647,8 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.layer.ToString() == "8"){
             //Eventoempujar
             animator.SetBool("push", false);
+            EventManager.NolongerPushing();
+            pushing = false;
             moveCollider = 0;
             colliderTransform.localPosition =  new Vector3(0.0f, -0.15f, 0.0f);
 
@@ -622,7 +659,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other){
 
-        if(other.gameObject.tag == "Stairs"){
+        if(other.gameObject.tag == "Stairs" && grounded){
+            climbPossible = true;
+        }
+
+    }
+
+     private void OnTriggerStay(Collider other){
+
+        if(other.gameObject.tag == "Stairs" && grounded){
             climbPossible = true;
         }
 

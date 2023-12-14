@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
         //batteryChargeRate = 0.05f;
 
         EventManager.ReduceBattery += reduceCharge; //Cuando un interruptor se activó, se le pide realizar la funcion reduceCharge;
+        EventManager.ZoneGameOver += ZoneGameOver;
 
         batterytext.text = "Bateria: 30%";
         noMovement = false;
@@ -50,6 +51,13 @@ public class GameController : MonoBehaviour
 
     public void restartLevel(){
         restartButton = true;       
+    }
+
+    private void ZoneGameOver(){
+        panelMenu.SetActive(true);
+        botonRestart.SetActive(true);
+        batterytext.text = "GAME OVER";
+
     }
 
 
@@ -132,6 +140,7 @@ public class GameController : MonoBehaviour
 
     private void OnDisable(){
         EventManager.ReduceBattery -= reduceCharge;
+        EventManager.ZoneGameOver -= ZoneGameOver;
     }
 
 }

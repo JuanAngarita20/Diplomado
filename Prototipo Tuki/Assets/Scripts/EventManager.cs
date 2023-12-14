@@ -30,6 +30,7 @@ public class EventManager : MonoBehaviour
         DamageObject?.Invoke(id);
     }
 
+    //Eventos animaciones
     public static event Action AnimGnaw; 
     public static void StartGnawAnim(){
         AnimGnaw?.Invoke();
@@ -47,6 +48,19 @@ public class EventManager : MonoBehaviour
     }
 
 
+    public static event Action StopInteractionForPushing; 
+    public static void CurrentlyPushing(){
+      StopInteractionForPushing?.Invoke();
+    }
+
+    public static event Action RestartInteractionForPushing; 
+    public static void NolongerPushing(){
+      RestartInteractionForPushing?.Invoke();
+    }
+
+
+
+    //Eventos Bateria
     public static event Action StartLosingControl; 
     public static void BatteryOver80(){
         StartLosingControl?.Invoke();
@@ -61,6 +75,13 @@ public class EventManager : MonoBehaviour
     public static void BatteryReach100(){
         GameOver?.Invoke();
     }
+
+    public static event Action ZoneGameOver; 
+    public static void TriggerZoneGameOver(){
+        ZoneGameOver?.Invoke();
+    }
+
+    
 
     
 

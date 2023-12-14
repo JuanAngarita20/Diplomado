@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FMOD.Studio;
 
-public class SecurityCameraController : MonoBehaviour
+public class SecondSCController : MonoBehaviour
 {
-    
+   
     [SerializeField] private List<int> idInterruptores;
     [SerializeField] private Vector3 angulo0;
     [SerializeField] private Vector3 angulo1;
@@ -16,8 +15,6 @@ public class SecurityCameraController : MonoBehaviour
     [SerializeField] private float distMaxLaser;
     [SerializeField] private int idInterruptor;
 
-
-    private EventInstance CamaraAlarm;
 
     public Quaternion targetAngulo0 = Quaternion.Euler(0,0,0);
     public Quaternion targetAngulo1 = Quaternion.Euler(0,0,0);
@@ -39,9 +36,6 @@ public class SecurityCameraController : MonoBehaviour
         distMaxLaser = 22f;
         laserCoolDown = 0.0f;
         cameraActivated = true;
-        
-        //Audio
-        CamaraAlarm = AudioManager.instance.CreateInstance(FMODEvents.instance.CamaraAlarm);
 
     }
 
@@ -81,9 +75,6 @@ public class SecurityCameraController : MonoBehaviour
                     playerDetected = true;
 
                     EventManager.InterruptorTrigger(idInterruptor);
-                    CamaraAlarm.start();
-                    
-
                     
                 }
 
@@ -106,34 +97,6 @@ public class SecurityCameraController : MonoBehaviour
             }
         }
         
-       
-
-
-       
-       
-        /*transform.rotation = Quaternion.Slerp(transform.rotation,angleObjective,0.02f);
-        if((transform.rotation.eulerAngles - targetAngulo1.eulerAngles) == new Vector3(0f,0f,0f)){
-            Debug.Log("Cambia Direccion a 25");
-            changeCurrectAngle();
-           
-        }
-        if(transform.rotation.eulerAngles == targetAngulo0.eulerAngles){
-            Debug.Log("Cambia Direccion a 35");
-            changeCurrectAngle();
-           
-        }
-        if(transform.rotation.eulerAngles == new Vector3(0.00f,0.00f,35.00f)){
-            Debug.Log("Cambia Direccion a 25");
-            changeCurrectAngle();
-           
-        }*/
-        
-
-        //Debug.Log("Objetivo: "+ angleObjective.eulerAngles);
-        //Debug.Log("Target 0: "+targetAngulo0.eulerAngles);
-        //Debug.Log("Target 1: "+ targetAngulo1.eulerAngles);
-        //Debug.Log("Camara: "+ transform.rotation.eulerAngles);
-        //Debug.Log("Resta: "+ (transform.rotation.eulerAngles - targetAngulo1.eulerAngles));
         
         
     }
@@ -192,10 +155,6 @@ public class SecurityCameraController : MonoBehaviour
     private void OnDisable(){
         EventManager.AccionInterruptor -= InterruptorCamara;
     }
-
-
-
-
 
 
 }

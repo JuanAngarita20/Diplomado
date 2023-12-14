@@ -7,19 +7,25 @@ public class InterruptorController : MonoBehaviour
 {
     private bool shockPossible = false;
     private bool noMovement;
+    private bool isPushing;
     [SerializeField] private int idInterruptor;
-
+   
 
     private  GameController battery;
 
     // Start is called before the first frame update
     void Start()
     {
-        battery = FindAnyObjectByType<GameController>();
-        noMovement = false;
 
         EventManager.StopMovForAnim += EventStopMove;
         EventManager.RestartMovAfterAnim += EventRestartMove;
+        EventManager.StopInteractionForPushing += EventPushing;
+        EventManager.RestartInteractionForPushing += EventNoLongerPushing;
+
+        battery = FindAnyObjectByType<GameController>();
+        noMovement = false;
+        isPushing = false;
+        
     }
 
      private void EventStopMove(){ //Respuesta al evento de Inicio de video
@@ -32,12 +38,23 @@ public class InterruptorController : MonoBehaviour
         //Debug.Log("iniciar mov en interruptor");
     }
 
+    private void EventPushing(){ //Respuesta al empujar
+        isPushing = true;
+        
+    }
+     private void EventNoLongerPushing(){ //Respuesta al no empujar
+        isPushing  = false;
+       
+    }
+
     // Update is called once per frame
     void Update()
     {
-        //Evento triggerInterruptor
 
-        if(Input.GetKeyDown(KeyCode.S) && shockPossible && (noMovement == false)){
+        //Evento triggerInterruptor
+        //Debug.Log(isPushing);
+
+        if(Input.GetKeyDown(KeyCode.S) && shockPossible && (isPushing==false) && (noMovement == false) ){
             //Evento Bajar carga
             EventManager.triggerReduceBattery();
             EventManager.InterruptorTrigger(idInterruptor);
@@ -49,7 +66,7 @@ public class InterruptorController : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other){
+     private void OnTriggerEnter(Collider other){
 
         if(other.gameObject.CompareTag("Player")){
             shockPossible = true;

@@ -69,7 +69,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/LEV_1.bank
   Name: LEV_1
   StudioPath: bank:/LEV_1
-  lastModified: 638379853432289698
+  lastModified: 638380991221666734
   FileSizes:
   - Name: Desktop
     Value: 4658848
@@ -263,6 +263,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 647
+--- !u!114 &-1306369416929591686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tuki/CamaraAlarm
+  m_EditorClassIdentifier: 
+  Path: event:/Tuki/CamaraAlarm
+  Guid:
+    Data1: -649569139
+    Data2: 1081431464
+    Data3: 1408272262
+    Data4: -1230495338
+  Banks:
+  - {fileID: 1114168804917990287}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5000
 --- !u!114 &-940262672433464498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +332,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638379853432319589
+  lastModified: 638380991221848258
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -351,12 +378,13 @@ MonoBehaviour:
   - {fileID: 2124487048436683138}
   - {fileID: 3897655239320192281}
   - {fileID: -1619241344575545907}
+  - {fileID: -1306369416929591686}
   EditorParameters: []
   MasterBanks:
   - {fileID: -186681564966978377}
   StringsBanks:
   - {fileID: 4682174106574564516}
-  cacheTime: 638379853441610977
+  cacheTime: 638380991274223861
   cacheVersion: 131609
 --- !u!114 &94065397916185088
 MonoBehaviour:
@@ -454,10 +482,10 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/TUKI.bank
   Name: TUKI
   StudioPath: bank:/TUKI
-  lastModified: 638379853441610977
+  lastModified: 638380991274223861
   FileSizes:
   - Name: Desktop
-    Value: 2608096
+    Value: 3114208
   Exists: 1
 --- !u!114 &1244110685133970208
 MonoBehaviour:
@@ -609,10 +637,10 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638379853432339940
+  lastModified: 638380991221883465
   FileSizes:
   - Name: Desktop
-    Value: 1796
+    Value: 1848
   Exists: 1
 --- !u!114 &5458050827520572937
 MonoBehaviour:
@@ -656,7 +684,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/PROPS.bank
   Name: PROPS
   StudioPath: bank:/PROPS
-  lastModified: 638379853435355305
+  lastModified: 638380991226222352
   FileSizes:
   - Name: Desktop
     Value: 567136
