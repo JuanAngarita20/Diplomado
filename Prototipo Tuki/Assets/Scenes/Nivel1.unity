@@ -8564,7 +8564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  jumpStrength: 200
+  jumpStrength: 100
   characterRigidBody: {fileID: 1914244860}
   estado: 0
   dir_mov: 0
@@ -8602,7 +8602,7 @@ Transform:
   m_GameObject: {fileID: 1914244857}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 41.5, y: 50, z: -1.34}
+  m_LocalPosition: {x: -27.26, y: 56.06, z: -1.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8623,7 +8623,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914244857}
   serializedVersion: 4
-  m_Mass: 20
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.04
   m_CenterOfMass: {x: 0, y: 0, z: 0}

@@ -283,6 +283,9 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(Input.GetKeyDown("left"));
 
         //Caminado
+        if(!moveDetected || !grounded){
+            StopPasosSound(); // Detener sonido de pasos
+        }
 
         if ((Input.GetKey(KeyCode.RightArrow)  || Input.GetKey(KeyCode.LeftArrow)) && estado != State.jumping && grounded) //Logica para Eventos SONIDO
         {
@@ -292,10 +295,11 @@ public class PlayerController : MonoBehaviour
                 PlayPasosSound(); // Iniciar sonido de pasos
             }
         }
-        else if (!moveDetected || !grounded) // Se ejecuta cuando se sueltan las teclas
+        /*else if (!moveDetected || !grounded) // Se ejecuta cuando se sueltan las teclas
         {
             StopPasosSound(); // Detener sonido de pasos
-        }
+        }*/
+        
         
         
         
