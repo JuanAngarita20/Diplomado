@@ -15,9 +15,14 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference RoerS {get; private set;}
     [field: SerializeField] public EventReference Chillidos {get; private set;}
     [field: SerializeField] public EventReference CamaraAlarm {get; private set;}
+    [field: SerializeField] public EventReference Emp {get; private set;}
+    [field: SerializeField] public EventReference Esca {get; private set;}
+    
 
     [field: Header("Props SFX")]
     [field: SerializeField] public EventReference Madera {get; private set;}
+    [field: SerializeField] public EventReference Plat {get; private set;}
+    [field: SerializeField] public EventReference Puent {get; private set;}
 
     public static FMODEvents instance {get; private set;}
 

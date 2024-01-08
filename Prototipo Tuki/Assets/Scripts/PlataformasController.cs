@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using UnityEngine;
+using FMOD.Studio;
 
 public class PlataformasController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlataformasController : MonoBehaviour
     public Quaternion targetAngulo0 = Quaternion.Euler(0,0,0);
     public Quaternion targetAngulo1 = Quaternion.Euler(0,0,0);
     private Quaternion angleObjective;
+    private EventInstance Plat;
+    
 
     void Start()
     {
@@ -27,6 +30,15 @@ public class PlataformasController : MonoBehaviour
         targetAngulo0 = Quaternion.Euler(angulo0.x,angulo0.y,angulo0.z);
         targetAngulo1 = Quaternion.Euler(angulo1.x,angulo1.y,angulo1.z);
         angleObjective = targetAngulo0;
+
+        //Audio
+        Plat = AudioManager.instance.CreateInstance(FMODEvents.instance.Plat);
+    }
+
+    private void PlatStart(){
+       
+        Plat.start();
+        Debug.Log("sono");
     }
 
     private void RotarPlataforma(int interrupID){ //Recibir ID del interrruptor
@@ -37,6 +49,7 @@ public class PlataformasController : MonoBehaviour
                 Debug.Log("Activaron a plataforma");
                 animacionRotar = true;
                 //EventoPlataforma
+                PlatStart();
                 changeCurrectAngle();
             }
         }   
@@ -49,9 +62,12 @@ public class PlataformasController : MonoBehaviour
 
     void Update()
     {
+        
         if(animacionRotar){
             transform.rotation = Quaternion.Slerp(transform.rotation,angleObjective,0.2f);
             alreadyRotating = true; //Designar que ya se esta girando
+            
+
             //Debug.Log("ROTACION PLATAFORMA");
         }
 
@@ -64,6 +80,7 @@ public class PlataformasController : MonoBehaviour
             if(alreadyRotating){
                 Debug.Log("Transformada: " + transform.rotation.eulerAngles);
                 Debug.Log("Obj 0: " + targetAngulo0.eulerAngles);
+               
                 Debug.Log("Detener Animacion------------------------------------------------------------------------rotar");
                 animacionRotar = false;
                 alreadyRotating = false;
@@ -76,7 +93,7 @@ public class PlataformasController : MonoBehaviour
             if(alreadyRotating){
                 Debug.Log("Transformada: " + transform.rotation.eulerAngles);
                 Debug.Log("Obj 1: " + targetAngulo1.eulerAngles);
-
+                
                 Debug.Log("Detener Animacion------------------------------------------------------------------------rotar");
                 animacionRotar = false;
                 alreadyRotating = false;

@@ -59,8 +59,12 @@ public class PlayerController : MonoBehaviour
     private EventInstance Para;
     private EventInstance Salto;
     private EventInstance Chillidos;
+    private EventInstance Emp;
+    private EventInstance Esca;
   
     private bool isChillidosPlaying = false;
+    private bool isEscalarPlaying = false;
+
     //Safe rotation
      
   
@@ -85,6 +89,8 @@ public class PlayerController : MonoBehaviour
         Para = AudioManager.instance.CreateInstance(FMODEvents.instance.Para);
         Salto = AudioManager.instance.CreateInstance(FMODEvents.instance.Salto);
         Chillidos = AudioManager.instance.CreateInstance(FMODEvents.instance.Chillidos);
+        Emp = AudioManager.instance.CreateInstance(FMODEvents.instance.Emp);
+        Esca = AudioManager.instance.CreateInstance(FMODEvents.instance.Esca);
         
     }
 
@@ -151,6 +157,40 @@ public class PlayerController : MonoBehaviour
             isChillidosPlaying = false;
         }
     }
+
+    private void EmpujarStart()
+    {
+        Emp.start();
+    }
+
+    private void StopEmpujarSound()
+    {
+        Emp.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+
+    private void EscalarStart()
+    {
+        if (!isEscalarPlaying)
+        {
+            Esca.start();
+            isEscalarPlaying = true;
+        }
+    }
+
+    private void StopEscalarSound()
+    {
+        if (isEscalarPlaying)
+        {
+            Esca.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            isEscalarPlaying = false;
+        }
+    }
+
+
+  
+
+
+
 
     //Prueba
 
@@ -292,6 +332,7 @@ public class PlayerController : MonoBehaviour
             
             if (moveDetected)
             {
+                StopEscalarSound();
                 PlayPasosSound(); // Iniciar sonido de pasos
             }
         }
@@ -344,9 +385,11 @@ public class PlayerController : MonoBehaviour
 
             if(dir_mov == Mov_Dir.left){
                 animator.SetBool("escaleraIzq",true);
+                EscalarStart();
             }
             if(dir_mov == Mov_Dir.right){
                 animator.SetBool("escaleraDer",true);
+                EscalarStart();
             }
 
             
@@ -354,6 +397,7 @@ public class PlayerController : MonoBehaviour
             movement = new Vector3(0.0f, 1.0f ,0.0f);
             moveDetected = true;
             grounded  = false;
+            Debug.Log("Escalar");
             
 
         }
@@ -363,6 +407,8 @@ public class PlayerController : MonoBehaviour
            animator.SetBool("escaleraIzq",false);
            animator.SetBool("escaleraDer",false);
            estado = State.falling;
+           StopEscalarSound();
+            Debug.Log("Escalar paro");
         }
 
 
@@ -370,6 +416,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("push", false);
             EventManager.NolongerPushing();
             pushing = false;
+            StopEmpujarSound();
             //Debug.Log(animator.GetBool("push"));
         }
 
@@ -424,7 +471,7 @@ public class PlayerController : MonoBehaviour
                 pushing = true;
                 Debug.Log("Empizar animacion empujar");
                 EventManager.CurrentlyPushing();
-
+                EmpujarStart();
             }
 
             moveCollider +=1;
@@ -684,6 +731,7 @@ public class PlayerController : MonoBehaviour
             estado = State.normal;
             animator.SetBool("escaleraIzq",false);
             animator.SetBool("escaleraDer",false);
+            StopEscalarSound();
         }
 
     }

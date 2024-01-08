@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using FMOD.Studio;
 public class PlataformaGrandeController : MonoBehaviour
 {   [SerializeField] private List<int> idInterruptores;
     [SerializeField] private Vector3 angulo0;
@@ -16,6 +16,7 @@ public class PlataformaGrandeController : MonoBehaviour
     public Quaternion targetAngulo0 = Quaternion.Euler(0,0,0);
     public Quaternion targetAngulo1 = Quaternion.Euler(0,0,0);
     private Quaternion angleObjective;
+    private EventInstance Puent;
 
     void Start()
     {
@@ -28,6 +29,16 @@ public class PlataformaGrandeController : MonoBehaviour
         targetAngulo0 = Quaternion.Euler(angulo0.x,angulo0.y,angulo0.z);
         targetAngulo1 = Quaternion.Euler(angulo1.x,angulo1.y,angulo1.z);
         angleObjective = targetAngulo0;
+
+        //Audio
+        Puent = AudioManager.instance.CreateInstance(FMODEvents.instance.Puent);
+    }
+
+
+    private void PuentStart(){
+       
+        Puent.start();
+        Debug.Log("sono");
     }
 
     private void RotarPlataforma(int interrupID){ //Recibir ID del interrruptor
@@ -42,6 +53,7 @@ public class PlataformaGrandeController : MonoBehaviour
                 }
                 Debug.Log("Activaron a plataforma");
                 animacionRotar = true;
+                PuentStart();
                 changeCurrectAngle();
             }
         }   
