@@ -242,6 +242,7 @@ MonoBehaviour:
   - Master
   Banks:
   - LEV_1
+  - Musica
   - PROPS
   - TUKI
   BanksToLoad: []

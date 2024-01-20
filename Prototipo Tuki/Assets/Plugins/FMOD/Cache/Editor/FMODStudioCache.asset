@@ -96,7 +96,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/LEV_1.bank
   Name: LEV_1
   StudioPath: bank:/LEV_1
-  lastModified: 638413135572069025
+  lastModified: 638413594841477640
   FileSizes:
   - Name: Desktop
     Value: 4658848
@@ -155,6 +155,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4500
+--- !u!114 &-4896793067286971469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Musica/MenuMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Musica/MenuMusic
+  Guid:
+    Data1: 1222219983
+    Data2: 1108325656
+    Data3: 1949633708
+    Data4: 1510860958
+  Banks:
+  - {fileID: 8386107867512031768}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 118535
 --- !u!114 &-3934524367368703763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,10 +386,10 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638413135572220229
+  lastModified: 638413594841507502
   FileSizes:
   - Name: Desktop
-    Value: 1340
+    Value: 1486
   Exists: 1
 --- !u!114 &-3015830017815830
 MonoBehaviour:
@@ -409,6 +436,7 @@ MonoBehaviour:
   - {fileID: -186681564966978377}
   - {fileID: 5529587446951108698}
   - {fileID: 1114168804917990287}
+  - {fileID: 8386107867512031768}
   EditorEvents:
   - {fileID: -1940579415729207705}
   - {fileID: -8636360157333893961}
@@ -438,12 +466,14 @@ MonoBehaviour:
   - {fileID: 2067009240211161050}
   - {fileID: -7335575421044410183}
   - {fileID: -3015830017815830}
+  - {fileID: 9030568942636348207}
+  - {fileID: -4896793067286971469}
   EditorParameters: []
   MasterBanks:
   - {fileID: -186681564966978377}
   StringsBanks:
   - {fileID: 4682174106574564516}
-  cacheTime: 638413135574255038
+  cacheTime: 638413594843384002
   cacheVersion: 131609
 --- !u!114 &94065397916185088
 MonoBehaviour:
@@ -541,7 +571,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/TUKI.bank
   Name: TUKI
   StudioPath: bank:/TUKI
-  lastModified: 638413135574255038
+  lastModified: 638413594843384002
   FileSizes:
   - Name: Desktop
     Value: 3805824
@@ -723,10 +753,10 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638413135572264162
+  lastModified: 638413594841527437
   FileSizes:
   - Name: Desktop
-    Value: 2138
+    Value: 2320
   Exists: 1
 --- !u!114 &5458050827520572937
 MonoBehaviour:
@@ -770,7 +800,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/PROPS.bank
   Name: PROPS
   StudioPath: bank:/PROPS
-  lastModified: 638413135573035474
+  lastModified: 638413594842656220
   FileSizes:
   - Name: Desktop
     Value: 1580032
@@ -883,6 +913,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 16090
+--- !u!114 &8386107867512031768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Musica.bank
+  m_EditorClassIdentifier: 
+  Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Musica.bank
+  Name: Musica
+  StudioPath: bank:/Musica
+  lastModified: 638413594842077523
+  FileSizes:
+  - Name: Desktop
+    Value: 6344448
+  Exists: 1
 --- !u!114 &8805820649554281936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -910,3 +960,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 22233
+--- !u!114 &9030568942636348207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Musica/NivMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Musica/NivMusic
+  Guid:
+    Data1: 1673751750
+    Data2: 1224117211
+    Data3: 1843636104
+    Data4: -222742620
+  Banks:
+  - {fileID: 8386107867512031768}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 250488

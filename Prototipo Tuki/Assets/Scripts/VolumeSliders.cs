@@ -10,7 +10,8 @@ public class VolumeSliders : MonoBehaviour
     public enum VolumType{
         MASTER,
         AMBIENCE,
-        SFX
+        SFX,
+        MUSIC
     }
 
     [Header("Type")]
@@ -34,6 +35,9 @@ public class VolumeSliders : MonoBehaviour
             case VolumType.SFX:
                 volumeSlider.value = AudioManager.instance.SFXVolume;
                 break;
+            case VolumType.MUSIC:
+                volumeSlider.value = AudioManager.instance.MusicVolume;
+                break;
             default:
                 Debug.LogWarning("Volume Type not supported: " + volumType);
                 break;
@@ -54,6 +58,9 @@ public class VolumeSliders : MonoBehaviour
             case VolumType.SFX:
                 AudioManager.instance.SFXVolume = volumeSlider.value;
                 break;
+            case VolumType.MUSIC:
+            AudioManager.instance.MusicVolume = volumeSlider.value;
+            break;
             default:
                 Debug.LogWarning("Volume Type not supported: " + volumType);
                 break;

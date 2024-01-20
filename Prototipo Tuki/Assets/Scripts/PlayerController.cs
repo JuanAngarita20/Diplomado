@@ -356,7 +356,7 @@ public class PlayerController : MonoBehaviour
 
             //EventoSaltar
             animator.SetBool("jump",true);
-            //SaltoStart();
+            SaltoStart();
 
             grounded  = false;
 
@@ -672,7 +672,7 @@ public class PlayerController : MonoBehaviour
             
 
             grounded = true;
-            SaltoStart();
+            //SaltoStart();
 
             //Regresar box de fisicas
             /*myList[0].localPosition = new Vector3(2.419f, 0.16f, 0.0f);

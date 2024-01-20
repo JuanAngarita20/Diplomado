@@ -24,6 +24,10 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference Madera {get; private set;}
     [field: SerializeField] public EventReference Plat {get; private set;}
     [field: SerializeField] public EventReference Puent {get; private set;}
+    
+    [field: Header("Musica")]
+    [field: SerializeField] public EventReference MusicaMen {get; private set;}
+    [field: SerializeField] public EventReference MusicaNiv {get; private set;}
 
     public static FMODEvents instance {get; private set;}
 
