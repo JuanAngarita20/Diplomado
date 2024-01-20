@@ -17,6 +17,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference CamaraAlarm {get; private set;}
     [field: SerializeField] public EventReference Emp {get; private set;}
     [field: SerializeField] public EventReference Esca {get; private set;}
+    [field: SerializeField] public EventReference Radio {get; private set;}
     
 
     [field: Header("Props SFX")]

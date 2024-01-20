@@ -14,7 +14,8 @@ public class GameController : MonoBehaviour
     private bool noMovement;
     private bool loseControl;
     private bool gameOver;
-     private bool restartButton;
+    private bool restartButton;
+    private bool onMenu;
     float timeForRestart;
 
     [SerializeField] public float batteryCharge = 30.0f;
@@ -22,6 +23,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private TMP_Text batterytext;
     [SerializeField] private GameObject panelMenu;
     [SerializeField] private GameObject  botonRestart;
+    [SerializeField] private GameObject  botonVolver;
+    [SerializeField] private GameObject  botonSalir;
+    [SerializeField] private GameObject  SlidersVolumen;
+    [SerializeField] private GameObject  TextoVolumen;
     
     
 
@@ -38,29 +43,38 @@ public class GameController : MonoBehaviour
         loseControl = false;
         gameOver = false;
         restartButton = false;
+        onMenu = false;
 
         panelMenu.SetActive(false);
         botonRestart.SetActive(false);
+        botonVolver.SetActive(false);
+        botonSalir.SetActive(false);
+        SlidersVolumen.SetActive(false);
+        TextoVolumen.SetActive(false);
        
-    }
-
-
-    private void reduceCharge(){
-        shockActivated = true;
     }
 
     public void restartLevel(){
         restartButton = true;       
     }
 
+    
+    public void funcionBotonVolver(){
+        SceneManager.LoadScene("PantallaInicial");
+    }
+    public void funcionBotonSalir(){
+        Application.Quit();
+    }
+
+    private void reduceCharge(){
+        shockActivated = true;
+    }
+
     private void ZoneGameOver(){
         panelMenu.SetActive(true);
         botonRestart.SetActive(true);
         batterytext.text = "GAME OVER";
-
     }
-
-
 
     // Update is called once per frame
     void Update()
@@ -116,6 +130,31 @@ public class GameController : MonoBehaviour
             }
 
         }
+
+
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            if(onMenu == false){
+                onMenu = true;
+
+                panelMenu.SetActive(true);
+                botonRestart.SetActive(true);
+                botonSalir.SetActive(true);
+                botonVolver.SetActive(true);
+                SlidersVolumen.SetActive(true);
+                TextoVolumen.SetActive(true);
+                EventManager.ActionStopMovement();
+            }
+            else{
+                onMenu = false;
+                panelMenu.SetActive(false);
+                botonRestart.SetActive(false);
+                botonSalir.SetActive(false);
+                botonVolver.SetActive(false);
+                SlidersVolumen.SetActive(false);
+                TextoVolumen.SetActive(false);
+                EventManager.RestartMovement();
+            }
+        }
         
         
     }
@@ -138,9 +177,11 @@ public class GameController : MonoBehaviour
         }
     }
 
+
     private void OnDisable(){
         EventManager.ReduceBattery -= reduceCharge;
         EventManager.ZoneGameOver -= ZoneGameOver;
     }
+
 
 }
