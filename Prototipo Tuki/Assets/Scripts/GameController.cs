@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     private bool gameOver;
     private bool restartButton;
     private bool onMenu;
+    private bool levelFinished;
     float timeForRestart;
 
     [SerializeField] public float batteryCharge = 30.0f;
@@ -27,6 +28,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject  botonSalir;
     [SerializeField] private GameObject  SlidersVolumen;
     [SerializeField] private GameObject  TextoVolumen;
+    [SerializeField] private GameObject  BatteryUI;
+    [SerializeField] private GameObject  UI_LevelFinished;
     
     
 
@@ -36,7 +39,9 @@ public class GameController : MonoBehaviour
         //batteryChargeRate = 0.05f;
 
         EventManager.ReduceBattery += reduceCharge; //Cuando un interruptor se activó, se le pide realizar la funcion reduceCharge;
-        EventManager.ZoneGameOver += ZoneGameOver;
+        EventManager.GameOver += GameOver;
+        EventManager.ZoneGameOver += GameOver;
+        EventManager.FinisehdLevel1 += EventFinishedLevel;
 
         batterytext.text = "Bateria: 30%";
         noMovement = false;
@@ -44,6 +49,7 @@ public class GameController : MonoBehaviour
         gameOver = false;
         restartButton = false;
         onMenu = false;
+        levelFinished = false;
 
         panelMenu.SetActive(false);
         botonRestart.SetActive(false);
@@ -51,12 +57,15 @@ public class GameController : MonoBehaviour
         botonSalir.SetActive(false);
         SlidersVolumen.SetActive(false);
         TextoVolumen.SetActive(false);
+        BatteryUI.SetActive(true);
+        UI_LevelFinished.SetActive(false);
        
     }
 
     public void restartLevel(){
         restartButton = true;       
     }
+
 
     
     public void funcionBotonVolver(){
@@ -66,22 +75,43 @@ public class GameController : MonoBehaviour
         Application.Quit();
     }
 
+
+
     private void reduceCharge(){
         shockActivated = true;
     }
 
-    private void ZoneGameOver(){
+    private void GameOver(){
+        gameOver = true;
         panelMenu.SetActive(true);
         botonRestart.SetActive(true);
         batterytext.text = "GAME OVER";
+    }
+
+    private void EventFinishedLevel(){
+        levelFinished = true;
+        botonVolver.SetActive(true);
+        UI_LevelFinished.SetActive(true);
+
+        BatteryUI.SetActive(false);
+        EventManager.ActionStopMovement();
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
+        
         batteryTextColor();
-        batterytext.text = "Bateria: "+ Mathf.Floor(batteryCharge) + "%";
+        if(!gameOver){
+            batterytext.text = "Bateria: "+ Mathf.Floor(batteryCharge) + "%";
+        }
+        
+
+        
+
+        
 
         if(batteryCharge > 99){
             EventManager.BatteryReach100();
@@ -94,11 +124,11 @@ public class GameController : MonoBehaviour
         
 
 
-        if(!shockActivated){
+        if(!onMenu){
             batteryCharge += batteryChargeRate*Time.deltaTime;
         }
         
-        else{
+        if(shockActivated){
             if(batteryCharge > 5 && !gameOver){ //Verificar que bateria no pase a ser negativo
                 batteryCharge -= 5.0f;
                 Debug.Log("Bateria Descargada");
@@ -132,7 +162,7 @@ public class GameController : MonoBehaviour
         }
 
 
-        if(Input.GetKeyDown(KeyCode.Escape)){
+        if(Input.GetKeyDown(KeyCode.Escape) && !levelFinished){
             if(onMenu == false){
                 onMenu = true;
 
@@ -142,6 +172,7 @@ public class GameController : MonoBehaviour
                 botonVolver.SetActive(true);
                 SlidersVolumen.SetActive(true);
                 TextoVolumen.SetActive(true);
+                BatteryUI.SetActive(false);
                 EventManager.ActionStopMovement();
             }
             else{
@@ -152,6 +183,7 @@ public class GameController : MonoBehaviour
                 botonVolver.SetActive(false);
                 SlidersVolumen.SetActive(false);
                 TextoVolumen.SetActive(false);
+                BatteryUI.SetActive(true);
                 EventManager.RestartMovement();
             }
         }
@@ -180,7 +212,9 @@ public class GameController : MonoBehaviour
 
     private void OnDisable(){
         EventManager.ReduceBattery -= reduceCharge;
-        EventManager.ZoneGameOver -= ZoneGameOver;
+        EventManager.GameOver -= GameOver;
+        EventManager.ZoneGameOver -= GameOver;
+        EventManager.FinisehdLevel1 -= EventFinishedLevel;
     }
 
 

@@ -81,6 +81,12 @@ public class EventManager : MonoBehaviour
         ZoneGameOver?.Invoke();
     }
 
+
+    public static event Action FinisehdLevel1; 
+    public static void TriggerFinisehdLevel1(){
+        FinisehdLevel1?.Invoke();
+    }
+
     
 
     

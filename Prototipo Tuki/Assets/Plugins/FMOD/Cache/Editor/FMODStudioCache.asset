@@ -96,7 +96,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/LEV_1.bank
   Name: LEV_1
   StudioPath: bank:/LEV_1
-  lastModified: 638413594841477640
+  lastModified: 638413594860000000
   FileSizes:
   - Name: Desktop
     Value: 4658848
@@ -386,7 +386,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638413594841507502
+  lastModified: 638413594860000000
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -473,7 +473,7 @@ MonoBehaviour:
   - {fileID: -186681564966978377}
   StringsBanks:
   - {fileID: 4682174106574564516}
-  cacheTime: 638413594843384002
+  cacheTime: 638413594860000000
   cacheVersion: 131609
 --- !u!114 &94065397916185088
 MonoBehaviour:
@@ -571,7 +571,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/TUKI.bank
   Name: TUKI
   StudioPath: bank:/TUKI
-  lastModified: 638413594843384002
+  lastModified: 638413594860000000
   FileSizes:
   - Name: Desktop
     Value: 3805824
@@ -753,7 +753,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638413594841527437
+  lastModified: 638413594860000000
   FileSizes:
   - Name: Desktop
     Value: 2320
@@ -800,7 +800,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/PROPS.bank
   Name: PROPS
   StudioPath: bank:/PROPS
-  lastModified: 638413594842656220
+  lastModified: 638413594860000000
   FileSizes:
   - Name: Desktop
     Value: 1580032
@@ -928,7 +928,7 @@ MonoBehaviour:
   Path: ../../FMOD-TUKI/ProyectoDip/Build/Desktop/Musica.bank
   Name: Musica
   StudioPath: bank:/Musica
-  lastModified: 638413594842077523
+  lastModified: 638413594860000000
   FileSizes:
   - Name: Desktop
     Value: 6344448

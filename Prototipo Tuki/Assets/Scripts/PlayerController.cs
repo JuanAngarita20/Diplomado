@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
         EventManager.StartLosingControl += EventLosingControl;
         EventManager.RegainControl += EventRegainControl;
         EventManager.GameOver += EventGameOver;
+        EventManager.ZoneGameOver += EventGameOver;
 
         //Audio
         Pasos = AudioManager.instance.CreateInstance(FMODEvents.instance.Pasos);
@@ -120,6 +121,7 @@ public class PlayerController : MonoBehaviour
 
      private void EventGameOver(){ //Respuesta al evento de Inicio de video
         stopMovement = true;
+        //Debug.Log("GAME OVER");
     }
 
 
@@ -359,6 +361,7 @@ public class PlayerController : MonoBehaviour
             SaltoStart();
 
             grounded  = false;
+            Debug.Log("Saltar");
 
             //Mover Box de Fisicas
             /*myList[0].localPosition = new Vector3(2.419f, 1.16f, 0.0f);
@@ -509,6 +512,7 @@ public class PlayerController : MonoBehaviour
         if(characterRigidBody.velocity.y < -2f){
             grounded  = false;
             estado = State.falling;
+            animator.SetBool("jump",false);
 
         }
 
@@ -584,7 +588,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //Saltar
+        //Escalar
         if(estado == State.goingUp){
           
             Vector3 moveVector = direction*speed;
