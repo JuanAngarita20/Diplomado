@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
@@ -252,6 +251,9 @@ public class PlayerController : MonoBehaviour
                     dir_mov = Mov_Dir.right;
                     movement = new Vector3(1.0f, 0.0f ,0.0f);
                     moveDetected = true;
+                    if((estado == State.jumping) || (estado == State.falling)){
+                        movement = new Vector3(1.15f, 0.0f ,0.0f);
+                    }
 
                 }
 
@@ -294,6 +296,9 @@ public class PlayerController : MonoBehaviour
                     dir_mov = Mov_Dir.left;
                     movement = new Vector3(-1.0f, 0.0f ,0.0f);
                     moveDetected = true;
+                    if((estado == State.jumping) || (estado == State.falling)){
+                        movement = new Vector3(-1.15f, 0.0f ,0.0f);
+                    }
                 }
 
             }
@@ -596,17 +601,15 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        /*if(estado == State.falling){
+        if(estado == State.falling){
 
             if(!checkWallOnFront){
                 Vector3 moveVector = direction*speed;
                 characterRigidBody.velocity = new Vector3(moveVector.x,characterRigidBody.velocity.y*1.02f, characterRigidBody.velocity.z);
 
             }
-          
-            
-            
-        }*/
+
+        }
 
         //Modo movimiento 2 - Fisicas No buenas en modo Rapido - Sirve en modo lento en speed = 20
 

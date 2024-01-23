@@ -14,6 +14,7 @@ public class SecondSCController : MonoBehaviour
     [SerializeField] private LayerMask MaskToFind;
     [SerializeField] private float distMaxLaser;
     [SerializeField] private int idInterruptor;
+    [SerializeField] private GameObject indicador;
 
 
     public Quaternion targetAngulo0 = Quaternion.Euler(0,0,0);
@@ -36,6 +37,7 @@ public class SecondSCController : MonoBehaviour
         distMaxLaser = 22f;
         laserCoolDown = 0.0f;
         cameraActivated = true;
+        indicador.SetActive(true);
 
     }
 
@@ -82,6 +84,8 @@ public class SecondSCController : MonoBehaviour
             if(playerDetected){
                 iniciarLaserCooldown(); //Para interaccion de la camara con player (Laser rojo o verde)
                 Debug.DrawRay(rayo.origin,rayo.direction*distMaxLaser,Color.red);
+
+               
             }
             else{
                 Debug.DrawRay(rayo.origin,rayo.direction*distMaxLaser,Color.green);
@@ -142,12 +146,15 @@ public class SecondSCController : MonoBehaviour
 
     private void camaraCooldown(){
 
-        if(laserCoolDown < 9){
+        if(laserCoolDown < 15){
             laserCoolDown += 1.0f * Time.deltaTime;
+             
+             indicador.SetActive(false);
         }
         else{
             laserCoolDown = 0.0f;
-            cameraActivated = true;;
+            cameraActivated = true;
+            indicador.SetActive(true);
         }
 
     }

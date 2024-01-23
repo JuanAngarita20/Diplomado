@@ -15,6 +15,7 @@ public class SecurityCameraController : MonoBehaviour
     [SerializeField] private LayerMask MaskToFind;
     [SerializeField] private float distMaxLaser;
     [SerializeField] private int idInterruptor;
+    [SerializeField] private GameObject indicador;
 
 
     private EventInstance CamaraAlarm;
@@ -39,6 +40,8 @@ public class SecurityCameraController : MonoBehaviour
         distMaxLaser = 22f;
         laserCoolDown = 0.0f;
         cameraActivated = true;
+
+        indicador.SetActive(true);
         
         //Audio
         CamaraAlarm = AudioManager.instance.CreateInstance(FMODEvents.instance.CamaraAlarm);
@@ -91,6 +94,7 @@ public class SecurityCameraController : MonoBehaviour
             if(playerDetected){
                 iniciarLaserCooldown(); //Para interaccion de la camara con player (Laser rojo o verde)
                 Debug.DrawRay(rayo.origin,rayo.direction*distMaxLaser,Color.red);
+                
             }
             else{
                 Debug.DrawRay(rayo.origin,rayo.direction*distMaxLaser,Color.green);
@@ -179,12 +183,14 @@ public class SecurityCameraController : MonoBehaviour
 
     private void camaraCooldown(){
 
-        if(laserCoolDown < 9){
+        if(laserCoolDown < 15){
             laserCoolDown += 1.0f * Time.deltaTime;
+            indicador.SetActive(false);
         }
         else{
             laserCoolDown = 0.0f;
-            cameraActivated = true;;
+            cameraActivated = true;
+            indicador.SetActive(true);
         }
 
     }
