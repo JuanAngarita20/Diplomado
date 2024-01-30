@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private float timeForStill = 0.0f;
     private float jumpMax = 0.0f;
     public float moveCollider = 0.0f;
+    public float fallingTimer = 0.0f;
 
     //Variables Audio
     private EventInstance Pasos;
@@ -240,20 +241,21 @@ public class PlayerController : MonoBehaviour
             
             if(!loseControl){
                 if(dir_mov == Mov_Dir.left){
+                    
                     characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
                     dir_mov = Mov_Dir.right;
-                    movement = new Vector3(0.0f, 0.0f ,0.0f);
+                    //movement = new Vector3(0.0f, 0.0f ,0.0f);
                     moveDetected = true;
                     Debug.Log("Girar derecha");
-                
+                    
                 }
                 else{
                     dir_mov = Mov_Dir.right;
                     movement = new Vector3(1.0f, 0.0f ,0.0f);
                     moveDetected = true;
-                    if((estado == State.jumping) || (estado == State.falling)){
-                        movement = new Vector3(1.15f, 0.0f ,0.0f);
-                    }
+                    /*if(estado == State.falling){
+                        movement = new Vector3(1.0f, -0.5f ,0.0f);
+                    }*/
 
                 }
 
@@ -286,19 +288,23 @@ public class PlayerController : MonoBehaviour
 
             if(!loseControl){
                 if(dir_mov == Mov_Dir.right){
+                    
+
                     characterRigidBody.MoveRotation(Quaternion.AngleAxis(180.0f,Vector3.up)*characterRigidBody.rotation);
                     dir_mov = Mov_Dir.left;
-                    movement = new Vector3(0.0f, 0.0f ,0.0f);
+                    //movement = new Vector3(0.0f, 0.0f ,0.0f);
                     moveDetected = true;
                     Debug.Log("Girar izq");
+
+                    
                 }
                 else{
                     dir_mov = Mov_Dir.left;
                     movement = new Vector3(-1.0f, 0.0f ,0.0f);
                     moveDetected = true;
-                    if((estado == State.jumping) || (estado == State.falling)){
-                        movement = new Vector3(-1.15f, 0.0f ,0.0f);
-                    }
+                    /*if(estado == State.falling){
+                        movement = new Vector3(-1.0f, -0.5f ,0.0f);
+                    }*/
                 }
 
             }
@@ -354,35 +360,33 @@ public class PlayerController : MonoBehaviour
         //movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f ,0.0f);
         
         
-        if(Input.GetKeyDown("space") && jumpMax < 1 && !pushing){
+        if(Input.GetKeyDown("space") && jumpMax < 1 && !pushing && grounded){
 
-            jumpMax++;
+            if(!checkWallOnFront){
+
+                 jumpMax++;
     
-            characterRigidBody.AddForce(Vector3.up*jumpStrength,ForceMode.Impulse);
-            estado = State.jumping;
+                characterRigidBody.AddForce(Vector3.up*jumpStrength,ForceMode.VelocityChange);
+                estado = State.jumping;
 
-            //EventoSaltar
-            animator.SetBool("jump",true);
-            SaltoStart();
+                //EventoSaltar
+                animator.SetBool("jump",true);
+                SaltoStart();
 
-            grounded  = false;
-            Debug.Log("Saltar");
+                grounded  = false;
+                Debug.Log("Saltar");
 
-            //Mover Box de Fisicas
-            /*myList[0].localPosition = new Vector3(2.419f, 1.16f, 0.0f);
-            colliderTransform.localPosition =  new Vector3(0.0f, 0.85f, 0.0f);*/
-           
+                //Mover Box de Fisicas
+                /*myList[0].localPosition = new Vector3(2.419f, 1.16f, 0.0f);
+                colliderTransform.localPosition =  new Vector3(0.0f, 0.85f, 0.0f);*/
+                
+            }
             
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && estado != State.jumping)
-        {
-            estado = State.jumping;
-            // Otras acciones cuando inicia el salto
-        }
-
+        
         //Accion Escalar Escalera
-        if(Input.GetKey("a") && climbPossible){
+        if(Input.GetKey("a") && climbPossible ){
 
 
             /*if(colliderTransform.transform.rotation.eulerAngles.z == 90 ){
@@ -390,32 +394,36 @@ public class PlayerController : MonoBehaviour
             }*/
 
             
-
-            if(dir_mov == Mov_Dir.left){
-                animator.SetBool("escaleraIzq",true);
-                EscalarStart();
-            }
-            if(dir_mov == Mov_Dir.right){
-                animator.SetBool("escaleraDer",true);
-                EscalarStart();
-            }
+            if(grounded || estado == State.goingUp){
+                if(dir_mov == Mov_Dir.left){
+                    animator.SetBool("escaleraIzq",true);
+                    EscalarStart();
+                }
+                if(dir_mov == Mov_Dir.right){
+                    animator.SetBool("escaleraDer",true);
+                    EscalarStart();
+                }
 
             
-            estado = State.goingUp;
-            movement = new Vector3(0.0f, 1.0f ,0.0f);
-            moveDetected = true;
-            grounded  = false;
-            Debug.Log("Escalar");
-            
+                estado = State.goingUp;
+                movement = new Vector3(0.0f, 1.0f ,0.0f);
+                moveDetected = true;
+                grounded  = false;
+                Debug.Log("Escalar");
+
+            }
+
 
         }
         
 
-        if (Input.GetKeyUp("a") && climbPossible){ //Pra activar estado de caer cuando se suelta la tecla "a"
-           animator.SetBool("escaleraIzq",false);
-           animator.SetBool("escaleraDer",false);
-           estado = State.falling;
-           StopEscalarSound();
+        if (Input.GetKeyUp("a") && estado == State.goingUp){ //Pra activar estado de caer cuando se suelta la tecla "a"
+            animator.SetBool("falling", true);
+            animator.SetBool("escaleraIzq",false);
+            animator.SetBool("escaleraDer",false);
+           
+            estado = State.falling;
+            StopEscalarSound();
             Debug.Log("Escalar paro");
         }
 
@@ -514,12 +522,13 @@ public class PlayerController : MonoBehaviour
 
 
 
-        if(characterRigidBody.velocity.y < -2f){
+        if(characterRigidBody.velocity.y < -1.5f){
             grounded  = false;
             estado = State.falling;
-            animator.SetBool("jump",false);
+            //animator.SetBool("jump",false);
 
         }
+        
 
         //Debug.Log(Mathf.Ceil(characterRigidBody.velocity.y));
 
@@ -537,6 +546,30 @@ public class PlayerController : MonoBehaviour
         else if (moveDetected || estado != State.normal)
         {
             StopChillidosSound(); // Detener sonido de chillidos
+        }
+
+
+        //Timer estado Falling
+        if(estado == State.falling){
+            contadorFalling();
+        }
+        else if(estado == State.normal){
+            fallingTimer = 0.0f;
+        }
+
+    }
+
+    private void  contadorFalling(){
+
+
+        if(fallingTimer < 1.5){
+
+            fallingTimer += 1.0f * Time.deltaTime;
+        }
+        else{
+            fallingTimer = 0.0f;
+            estado = State.normal;
+            grounded = true;
         }
 
     }
@@ -603,11 +636,14 @@ public class PlayerController : MonoBehaviour
 
         if(estado == State.falling){
 
-            if(!checkWallOnFront){
+            if(!checkWallOnFront && (characterRigidBody.velocity.y < -1.5f)){
                 Vector3 moveVector = direction*speed;
-                characterRigidBody.velocity = new Vector3(moveVector.x,characterRigidBody.velocity.y*1.02f, characterRigidBody.velocity.z);
+                characterRigidBody.velocity = new Vector3(moveVector.x,characterRigidBody.velocity.y*1.01f, characterRigidBody.velocity.z);
+                Debug.Log(characterRigidBody.velocity.y);
+                
 
             }
+            
 
         }
 
@@ -671,6 +707,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("escaleraIzq",false);
             animator.SetBool("escaleraDer",false);
             animator.SetBool("jump",false);
+            animator.SetBool("falling",false);
 
             //Evento empujar(Talves)
 
@@ -736,14 +773,23 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit(Collider other){
         if(other.gameObject.tag == "Stairs"){
             climbPossible = false;
-            estado = State.normal;
+            estado = State.falling;
+            animator.SetBool("falling",true);
             animator.SetBool("escaleraIzq",false);
             animator.SetBool("escaleraDer",false);
+            
             StopEscalarSound();
         }
 
     }
 
+    /*void OnCollisionStay(Collision collisionInfo) {
+        if (collisionInfo.gameObject.tag == "Floor") {
+            //Reduce motor strength to 80%
+            estado = State.normal;
+            grounded= true;
+        }
+    }*/
 
     private void OnDisable(){
         EventManager.TurnOnVideo -= EventoVideoStarted; //Suscribirse al evento de Inicio de Video

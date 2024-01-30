@@ -58,14 +58,17 @@ public class PlayerController2 : MonoBehaviour
     void Update()
     {
         //Debug.Log(rg.velocity.y );
-        if(rg.velocity.y < -2f){
+        if(rg.velocity.y < -1.5f){
             //Debug.Log("Cayendo!!");
             animator.SetBool("jump",false);
             animator.SetBool("falling",true);
 
         }
         else{
-            animator.SetBool("falling",false);
+            if(varPlayerController.grounded){
+                animator.SetBool("falling",false);
+            }
+            
         }
 
 
