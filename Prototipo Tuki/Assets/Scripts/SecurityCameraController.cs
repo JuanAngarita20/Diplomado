@@ -16,6 +16,7 @@ public class SecurityCameraController : MonoBehaviour
     [SerializeField] private float distMaxLaser;
     [SerializeField] private int idInterruptor;
     [SerializeField] private GameObject indicador;
+    [SerializeField] private Light luzCamara1;
 
 
     private EventInstance CamaraAlarm;
@@ -94,10 +95,12 @@ public class SecurityCameraController : MonoBehaviour
             if(playerDetected){
                 iniciarLaserCooldown(); //Para interaccion de la camara con player (Laser rojo o verde)
                 Debug.DrawRay(rayo.origin,rayo.direction*distMaxLaser,Color.red);
+                luzCamara1.color = Color.red;
                 
             }
             else{
                 Debug.DrawRay(rayo.origin,rayo.direction*distMaxLaser,Color.green);
+                luzCamara1.color = Color.green;
             }
         
 
@@ -186,11 +189,13 @@ public class SecurityCameraController : MonoBehaviour
         if(laserCoolDown < 15){
             laserCoolDown += 1.0f * Time.deltaTime;
             indicador.SetActive(false);
+            luzCamara1.intensity = 0f;
         }
         else{
             laserCoolDown = 0.0f;
             cameraActivated = true;
             indicador.SetActive(true);
+            luzCamara1.intensity = 9.5f;
         }
 
     }

@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
         EventManager.GameOver += GameOver;
         EventManager.ZoneGameOver += GameOver;
         EventManager.FinisehdLevel1 += EventFinishedLevel;
+        EventManager.RestartMovAfterAnim += RestartBatteryCount;
 
         batterytext.text = "Bateria: 30%";
         noMovement = false;
@@ -65,8 +66,6 @@ public class GameController : MonoBehaviour
     public void restartLevel(){
         restartButton = true;       
     }
-
-
     
     public void funcionBotonVolver(){
         SceneManager.LoadScene("PantallaInicial");
@@ -76,6 +75,10 @@ public class GameController : MonoBehaviour
     }
 
 
+
+    private void RestartBatteryCount(){
+        shockActivated = false;
+    }
 
     private void reduceCharge(){
         shockActivated = true;
@@ -108,9 +111,6 @@ public class GameController : MonoBehaviour
             batterytext.text = "Bateria: "+ Mathf.Floor(batteryCharge) + "%";
         }
         
-
-        
-
         
 
         if(batteryCharge > 99){
@@ -129,7 +129,13 @@ public class GameController : MonoBehaviour
         }
         
         if(shockActivated){
-            if(batteryCharge > 5 && !gameOver){ //Verificar que bateria no pase a ser negativo
+
+            if(batteryCharge > 60 && !gameOver){ //Verificar que bateria no pase a ser negativo
+                batteryCharge -= 10.0f;
+                Debug.Log("Bateria Descargada");
+                
+            }
+            else if(batteryCharge > 5 && !gameOver){ //Verificar que bateria no pase a ser negativo
                 batteryCharge -= 5.0f;
                 Debug.Log("Bateria Descargada");
                 
@@ -215,6 +221,7 @@ public class GameController : MonoBehaviour
         EventManager.GameOver -= GameOver;
         EventManager.ZoneGameOver -= GameOver;
         EventManager.FinisehdLevel1 -= EventFinishedLevel;
+        EventManager.RestartMovAfterAnim -= RestartBatteryCount;
     }
 
 

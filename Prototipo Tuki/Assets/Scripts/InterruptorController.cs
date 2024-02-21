@@ -54,12 +54,12 @@ public class InterruptorController : MonoBehaviour
         //Evento triggerInterruptor
         //Debug.Log(isPushing);
 
-        if(Input.GetKeyDown(KeyCode.S) && shockPossible && (isPushing==false) && (noMovement == false) ){
+        if(Input.GetKeyDown(KeyCode.S) && shockPossible && (isPushing==false) && (noMovement == false) && (battery.batteryCharge > 5.0f)){
             //Evento Bajar carga
             EventManager.triggerReduceBattery();
             EventManager.InterruptorTrigger(idInterruptor);
             //ShockElectrico
-            
+             
 
         }
 
